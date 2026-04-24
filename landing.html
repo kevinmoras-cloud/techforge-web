@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TechForge</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#" aria-label="Ir al inicio">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">TechForge</span>
+      </a>
+
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-label="Abrir menú"
+        aria-controls="main-nav"
+        aria-expanded="false"
+      >
+        <span class="bar" aria-hidden="true"></span>
+        <span class="bar" aria-hidden="true"></span>
+        <span class="bar" aria-hidden="true"></span>
+      </button>
+
+      <nav id="main-nav" class="nav" aria-label="Navegación principal">
+        <a href="#beneficios">Productos</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#contacto" class="nav-cta">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-left">
+          <p class="eyebrow">Componentes, soporte y ensambles</p>
+          <h1>Tu tienda tech con estilo profesional y energía gamer.</h1>
+          <p class="hero-text">
+            Encuentra tarjetas gráficas, procesadores, memorias RAM, discos y servicios técnicos especializados para mejorar tu PC.
+          </p>
+          <div class="hero-actions">
+            <a href="#beneficios" class="btn btn-primary">Explorar Productos</a>
+            <a href="#servicios" class="btn btn-secondary">Ver Servicios</a>
+          </div>
+        </div>
+
+        <div class="hero-right" aria-hidden="true">
+          <img src="imagenes/LOGO.jpeg" alt="">
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="beneficios" class="section products">
+      <div class="container">
+        <div class="section-head light">
+          <p class="section-kicker">Nuestros Productos</p>
+          <h2>Componentes para armar o mejorar tu computadora</h2>
+          <p>Una selección de productos con enfoque en rendimiento, compatibilidad y soporte técnico.</p>
+        </div>
+
+        <div class="products-grid">
+          <article class="product-card">
+            <div class="product-visual gpu"></div>
+            <img src="imagenes/ram.jpeg" alt="">
+            <h3>Tarjetas Gráficas (GPU)</h3>
+            <p>Potencia para juegos, edición y trabajo pesado.</p>
+          </article>
+
+          <article class="product-card">
+            <div class="product-visual cpu"></div>
+            <img src="imagenes/procesador.jpeg" alt="">
+            <h3>Procesadores (CPU)</h3>
+            <p>Rendimiento estable para multitarea y productividad.</p>
+          </article>
+
+          <article class="product-card">
+            <div class="product-visual ram"></div>
+            <img src="imagenes/ram.jpeg" alt="">
+            <h3>Memorias RAM</h3>
+            <p>Más velocidad y mejor respuesta del sistema.</p>
+          </article>
+
+          <article class="product-card">
+            <div class="product-visual storage"></div>
+            <img src="imagenes/ssd.jpeg" alt="">
+            <h3>Discos SSD y HDD</h3>
+            <p>Almacenamiento rápido, seguro y confiable.</p>
+          </article>
+
+          <article class="product-card">
+            <div class="product-visual mobo"></div>
+            <img src="imagenes/placa.jpeg" alt="">
+            <h3>Placas Base</h3>
+            <p>Compatibilidad total para distintas configuraciones.</p>
+          </article>
+        </div>
+
+        <p class="section-note">
+          Todos nuestros productos cuentan con <strong>garantía</strong> y <strong>soporte técnico especializado</strong>.
+        </p>
+      </div>
+    </section>
+
+    <section id="servicios" class="section services">
+      <div class="container">
+        <div class="section-head dark">
+          <p class="section-kicker">Servicios Técnicos</p>
+          <h2>Además de vender componentes, también resolvemos problemas</h2>
+          <p>Ensamble, reparación y mantenimiento preventivo para equipos de hogar, estudio y trabajo.</p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card">
+            <div class="service-image build"></div>
+            <img src="imagenes/ensamble.jpeg" alt="">
+            <div class="service-body">
+              <h3>Ensamble de PC Personalizados</h3>
+              <p>Diseño y armado de equipos según presupuesto, uso y preferencias.</p>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-image repair"></div>
+            <img src="imagenes/diagnostico.jpeg" alt="">
+            <div class="service-body">
+              <h3>Reparación de Computadores</h3>
+              <p>Diagnóstico y solución de fallas de hardware y software.</p>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-image maintenance"></div>
+            <img src="imagenes/servicio.jpeg" alt="">
+            <div class="service-body">
+              <h3>Mantenimiento Preventivo</h3>
+              <p>Limpieza, cambio de pasta térmica y optimización general del sistema.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonio" class="section testimonial">
+      <div class="container">
+        <div class="section-head light">
+          <p class="section-kicker">¿Por qué elegirnos?</p>
+          <h2>Confiabilidad, asesoría y calidad en cada detalle</h2>
+        </div>
+
+        <div class="testimonial-box">
+          <ul class="reasons">
+            <li>Componentes de alta calidad</li>
+            <li>Técnicos especializados en hardware</li>
+            <li>Garantía en productos y servicios</li>
+            <li>Asesoría personalizada</li>
+            <li>Precios competitivos</li>
+          </ul>
+
+          <div class="trust-badge">
+            <span class="trust-small">COMPONENTES</span>
+            <span class="trust-big">100%</span>
+            <span class="trust-small accent">Confiables</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="section cta">
+      <div class="container cta-grid">
+        <div class="cta-left">
+          <p class="section-kicker">Promociones y Ofertas</p>
+          <h2>Aprovecha ofertas especiales en componentes y accesorios para PC</h2>
+          <p>
+            Escríbenos para cotizaciones, disponibilidad de productos y soporte técnico.
+          </p>
+
+          <div class="contact-card">
+            <p><strong>Correo:</strong> Soporte@techforge.com</p>
+            <p><strong>Teléfono:</strong> +57 3188154344</p>
+            <p><strong>Dirección:</strong> Ibagué, Colombia</p>
+          </div>
+        </div>
+
+        <div class="cta-right" aria-hidden="true">
+          <div class="offer-card">
+            <div class="offer-board">
+              <div class="offer-fan"></div>
+              <div class="offer-fan"></div>
+              <div class="offer-fan"></div>
+              <div class="offer-fan"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const btn = document.querySelector('.nav-toggle');
+    const nav = document.querySelector('#main-nav');
+
+    btn.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  </script>
+</body>
+</html>
