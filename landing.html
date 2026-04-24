@@ -10,7 +10,7 @@
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="#" aria-label="Ir al inicio">
+      <a class="brand" href="#inicio" aria-label="Ir al inicio">
         <span class="brand-mark" aria-hidden="true"></span>
         <span class="brand-name">TechForge</span>
       </a>
@@ -28,31 +28,32 @@
       </button>
 
       <nav id="main-nav" class="nav" aria-label="Navegación principal">
-        <a href="#beneficios">Productos</a>
-        <a href="#servicios">Servicios</a>
-        <a href="#contacto" class="nav-cta">Contacto</a>
+        <a href="#beneficios" class="nav-link">Productos</a>
+        <a href="#servicios" class="nav-link">Servicios</a>
+        <a href="#contacto" class="nav-link nav-cta">Contacto</a>
+        <button type="button" class="nav-link btn-login">Iniciar Sesión / Registrarse</button>
       </nav>
     </div>
   </header>
 
   <main>
-    <section class="hero">
+    <section class="hero" id="inicio">
       <div class="container hero-grid">
         <div class="hero-left">
-          <p class="eyebrow">Componentes, soporte y ensambles</p>
-          <h1>Tu tienda tech con estilo profesional y energía gamer.</h1>
-          <p class="hero-text">
+          <p class="eyebrow fade-up">Componentes, soporte y ensambles</p>
+          <h1 class="fade-up delay-1">Tu tienda tech con estilo profesional y energía gamer.</h1>
+          <p class="hero-text fade-up delay-2">
             Encuentra tarjetas gráficas, procesadores, memorias RAM, discos y servicios técnicos especializados para mejorar tu PC.
           </p>
-          <div class="hero-actions">
+          <div class="hero-actions fade-up delay-3">
             <a href="#beneficios" class="btn btn-primary">Explorar Productos</a>
             <a href="#servicios" class="btn btn-secondary">Ver Servicios</a>
           </div>
         </div>
 
-        <div class="hero-right" aria-hidden="true">
-          <img src="imagenes/LOGO.jpeg" alt="">
-
+        <div class="hero-right fade-scale" aria-hidden="true">
+          <div class="hero-image-wrapper">
+             <img src="imagenes/LOGO.jpeg" alt="Logo TechForge">
           </div>
         </div>
       </div>
@@ -479,6 +480,210 @@
   <img src="imagenes/whatsapp.png" alt="WhatsApp">
 </a>
 
-<script src="app.js"></script>
+  <!-- MODAL LOGIN / REGISTRO CON VALIDACIÓN -->
+  <div id="auth-modal" class="auth-modal" aria-hidden="true">
+    <div class="auth-overlay"></div>
+    <div class="auth-container">
+      <button class="auth-close" aria-label="Cerrar">&times;</button>
+      <div class="auth-header">
+        <h2>Bienvenido a TechForge</h2>
+        <p>Inicia sesión o crea tu cuenta para continuar</p>
+      </div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">Iniciar Sesión</button>
+        <button class="auth-tab" data-tab="register">Crear Cuenta</button>
+      </div>
+      
+      <form id="login-form" class="auth-form">
+        <div class="form-group">
+          <label>Correo electrónico</label>
+          <input type="email" placeholder="ejemplo@correo.com" required>
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="auth-btn auth-btn--primary">Ingresar</button>
+      </form>
+
+      <form id="register-form" class="auth-form" style="display:none;">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre completo</label>
+            <input type="text" id="reg-name" placeholder="Tu nombre" required>
+            <small class="form-error" id="err-name"></small>
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="tel" id="reg-phone" placeholder="+57 300 000 0000" required>
+            <small class="form-error" id="err-phone"></small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Correo electrónico</label>
+          <input type="email" id="reg-email" placeholder="ejemplo@correo.com" required>
+          <small class="form-error" id="err-email"></small>
+        </div>
+        <div class="form-group">
+          <label>Dirección de envío</label>
+          <input type="text" id="reg-address" placeholder="Calle, número, ciudad" required>
+          <small class="form-error" id="err-address"></small>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" id="reg-pass" placeholder="Mínimo 8 caracteres" required>
+            <small class="form-error" id="err-pass"></small>
+          </div>
+          <div class="form-group">
+            <label>Confirmar contraseña</label>
+            <input type="password" id="reg-confirm" placeholder="Repite tu contraseña" required>
+            <small class="form-error" id="err-confirm"></small>
+          </div>
+        </div>
+        <button type="submit" class="auth-btn auth-btn--primary">Crear Cuenta</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    /* === SCRIPT MODAL + VALIDACIÓN (ENCAPSULADO) === */
+    (function() {
+      const loginBtn = document.querySelector('.btn-login');
+      const modal = document.getElementById('auth-modal');
+      const closeBtn = modal?.querySelector('.auth-close');
+      const overlay = modal?.querySelector('.auth-overlay');
+      const tabs = document.querySelectorAll('.auth-tab');
+      const loginForm = document.getElementById('login-form');
+      const registerForm = document.getElementById('register-form');
+
+      if (!modal || !loginBtn) return;
+
+      function openModal() {
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        // 🧹 LIMPIA TODO AL ABRIR
+        loginForm.reset();
+        registerForm.reset();
+        clearErrors(registerForm);
+      }
+
+      function closeModal() {
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      loginBtn.addEventListener('click', openModal);
+      if(closeBtn) closeBtn.addEventListener('click', closeModal);
+      if(overlay) overlay.addEventListener('click', closeModal);
+      document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          // 🧹 LIMPIA TODO AL CAMBIAR DE PESTAÑA
+          loginForm.reset();
+          registerForm.reset();
+          clearErrors(registerForm);
+
+          loginForm.style.display = tab.dataset.tab === 'login' ? 'flex' : 'none';
+          registerForm.style.display = tab.dataset.tab === 'register' ? 'flex' : 'none';
+        });
+      });
+
+      // Login simple
+      loginForm.addEventListener('submit', e => {
+        e.preventDefault();
+        alert('✅ Login listo para conectar con backend.');
+        loginForm.reset();
+        closeModal();
+      });
+
+      // Validación estricta del registro
+      registerForm.addEventListener('submit', e => {
+        e.preventDefault();
+        clearErrors(registerForm);
+
+        const name = document.getElementById('reg-name').value.trim();
+        const phone = document.getElementById('reg-phone').value.trim();
+        const email = document.getElementById('reg-email').value.trim();
+        const address = document.getElementById('reg-address').value.trim();
+        const pass = document.getElementById('reg-pass').value;
+        const confirm = document.getElementById('reg-confirm').value;
+
+        let isValid = true;
+
+        if (!/^[A-Za-zÁáÉéÍíÓóÚúÑñ\s]{3,50}$/.test(name)) {
+          showErr('err-name', 'Nombre: 3-50 caracteres, solo letras y espacios.'); isValid = false;
+        }
+        if (!/^\+?[0-9\s\-]{7,15}$/.test(phone)) {
+          showErr('err-phone', 'Teléfono: mínimo 7 dígitos válidos.'); isValid = false;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          showErr('err-email', 'Correo: formato inválido (ej: usuario@dominio.com).'); isValid = false;
+        }
+        if (!/^[A-Za-z0-9\s.,#\-]{5,100}$/.test(address)) {
+          showErr('err-address', 'Dirección: mínimo 5 caracteres.'); isValid = false;
+        }
+        if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/.test(pass)) {
+          showErr('err-pass', 'Contraseña: mín 8 chars, 1 mayúscula, 1 minúscula, 1 número, 1 especial.'); isValid = false;
+        }
+        if (confirm !== pass || confirm === '') {
+          showErr('err-confirm', 'Las contraseñas no coinciden.'); isValid = false;
+        }
+
+        if (!isValid) return;
+
+        const btn = registerForm.querySelector('.auth-btn');
+        const originalText = btn.textContent;
+        btn.textContent = 'Procesando...';
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+
+        setTimeout(() => {
+          alert('✅ Registro exitoso. Todos los datos fueron validados correctamente.');
+          registerForm.reset();
+          clearErrors(registerForm);
+          btn.textContent = originalText;
+          btn.disabled = false;
+          btn.style.opacity = '1';
+          closeModal();
+        }, 1200);
+      });
+
+      // Limpiar error al escribir
+      registerForm.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', () => {
+          const errEl = input.parentElement.querySelector('.form-error');
+          if(errEl) errEl.classList.remove('visible');
+          input.classList.remove('error');
+        });
+      });
+
+      function showErr(id, msg) {
+        document.getElementById(id).textContent = msg;
+        document.getElementById(id).classList.add('visible');
+        document.getElementById(id).previousElementSibling.classList.add('error');
+      }
+
+      function clearErrors(form) {
+        form.querySelectorAll('.form-error').forEach(e => { e.textContent = ''; e.classList.remove('visible'); });
+        form.querySelectorAll('input').forEach(i => i.classList.remove('error'));
+      }
+
+      // Función de servicios
+      window.seleccionarServicio = function(servicio) {
+        const input = document.getElementById('servicio');
+        if(input) {
+          input.value = servicio;
+          document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+        }
+      };
+    })();
+  </script>
 </body>
 </html>
