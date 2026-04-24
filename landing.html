@@ -270,6 +270,8 @@
             <div class="service-body">
               <h3>Ensamble de PC Personalizados</h3>
               <p>Diseño y armado de equipos según presupuesto, uso y preferencias.</p>
+                <button onclick="seleccionarServicio('Ensamble')">
+                     Solicitar servicio
             </div>
           </article>
 
@@ -279,6 +281,7 @@
             <div class="service-body">
               <h3>Reparación de Computadores</h3>
               <p>Diagnóstico y solución de fallas de hardware y software.</p>
+                <button onclick="seleccionarServicio('Reparación')">Solicitar servicio</button>
             </div>
           </article>
 
@@ -288,6 +291,7 @@
             <div class="service-body">
               <h3>Mantenimiento Preventivo</h3>
               <p>Limpieza, cambio de pasta térmica y optimización general del sistema.</p>
+                <button onclick="seleccionarServicio('Mantenimiento')">Solicitar servicio</button>
             </div>
           </article>
         </div>
@@ -298,76 +302,89 @@
     <!-- aqui termina la sona de los servivcios -->
 
     
-    <!-- sona de beneficios -->
+<!-- zona de beneficios -->
 
-    <section id="testimonio" class="section testimonial">
-      <div class="container">
-        <div class="section-head light">
-          <p class="section-kicker">¿Por qué elegirnos?</p>
-          <h2>Confiabilidad, asesoría y calidad en cada detalle</h2>
-        </div>
+<section id="testimonio" class="section testimonial">
+  <div class="container">
 
-        <div class="testimonial-box">
-          <ul class="reasons">
-            <li>Componentes de alta calidad</li>
-            <li>Técnicos especializados en hardware</li>
-            <li>Garantía en productos y servicios</li>
-            <li>Asesoría personalizada</li>
-            <li>Precios competitivos</li>
-          </ul>
+    <div class="section-head light">
+      <p class="section-kicker">¿Por qué elegirnos?</p>
+      <h2>Confiabilidad, asesoría y calidad en cada detalle</h2>
+    </div>
 
-          <div class="trust-badge">
-            <span class="trust-small">COMPONENTES</span>
-            <span class="trust-big">100%</span>
-            <span class="trust-small accent">Confiables</span>
-          </div>
-        </div>
+    <div class="testimonial-box">
+
+      <!-- LISTA DE BENEFICIOS -->
+      <ul class="reasons animar">
+        <li>Componentes de alta calidad</li>
+        <li>Técnicos especializados en hardware</li>
+        <li>Garantía en productos y servicios</li>
+        <li>Asesoría personalizada</li>
+        <li>Precios competitivos</li>
+      </ul>
+
+      <!-- CÍRCULO -->
+      <div class="trust-badge animar">
+        <span class="trust-small">COMPONENTES</span>
+        <span class="trust-big">0%</span>
+        <span class="trust-small accent">Confiables</span>
       </div>
-    </section>
 
-    <!-- aqui terina los beneficios -->
+    </div>
+
+    <!-- BOTÓN -->
+    <div style="text-align:center; margin-top: 25px;">
+      <a href="#servicios" class="btn btn-primary">
+        Solicitar servicio ahora
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- fin beneficios -->
 
     
-    <!-- aqui empiza la sona de contacto  -->
-    <section id="contacto" class="section cta">
-      <div class="container cta-grid">
-        <div class="cta-left">
-          <p class="section-kicker">Promociones y Ofertas</p>
-          <h2>Aprovecha ofertas especiales en componentes y accesorios para PC</h2>
-          <p>
-            Escríbenos para cotizaciones, disponibilidad de productos y soporte técnico.
-          </p>
+<!-- SECCIÓN CONTACTO -->
+<section id="contacto" class="section cta">
+  <div class="container cta-grid">
 
-          <div class="contact-card">
-            <p><strong>Correo:</strong> Soporte@techforge.com</p>
-            <p><strong>Teléfono:</strong> +57 3188154344</p>
-            <p><strong>Dirección:</strong> Ibagué, Colombia</p>
-          </div>
-        </div>
+    <div class="cta-left">
+      <h2>Aprovecha ofertas especiales en componentes y accesorios para PC</h2>
+      <p>Escríbenos para cotizaciones, disponibilidad de productos y soporte técnico.</p>
 
-        <div class="cta-right" aria-hidden="true">
-          <img src="imagenes/final.png" alt="">
-          <div class="offer-card">
-            <div class="offer-board">
-              <div class="offer-fan"></div>
-              <div class="offer-fan"></div>
-              <div class="offer-fan"></div>
-              <div class="offer-fan"></div>
-            </div>
-          </div>
-        </div>
+      <div class="contact-card">
+
+        <p><strong>Correo:</strong> Soporte@techforge.com</p>
+        <p><strong>Teléfono:</strong> +57 3188154344</p>
+        <p><strong>Dirección:</strong> Ibagué, Colombia</p>
+
+        <form id="formContacto">
+
+          <input type="text" id="nombre" placeholder="Nombre" required>
+          <input type="email" id="correo" placeholder="Correo" required>
+          <input type="text" id="servicio" placeholder="Servicio seleccionado" readonly>
+          <textarea id="mensaje" placeholder="Describe tu problema"></textarea>
+
+          <button type="submit">Enviar solicitud</button>
+
+        </form>
+
       </div>
-    </section>
-  </main>
+    </div>
 
-  <script>
-    const btn = document.querySelector('.nav-toggle');
-    const nav = document.querySelector('#main-nav');
+    <div class="cta-right">
+      <img src="imagenes/final.png" alt="">
+    </div>
 
-    btn.addEventListener('click', () => {
-      const open = nav.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-  </script>
+  </div>
+</section>
+
+<!-- BOTÓN WHATSAPP -->
+<a href="https://wa.me/573176065800" class="whatsapp-float" target="_blank">
+  <img src="imagenes/whatsapp.png" alt="WhatsApp">
+</a>
+
+<script src="app.js"></script>
 </body>
 </html>
