@@ -360,13 +360,12 @@
 
         <div class="services-grid">
           <article class="service-card">
-            <div class="service-image build"></div>
-            <img src="imagenes/ensamble.jpeg" alt="">
+            <img src="imagenes/ensamble.jpeg" alt="Ensamble de PC"> 
             <div class="service-body">
               <h3>Ensamble de PC Personalizados</h3>
               <p>Diseño y armado de equipos según presupuesto, uso y preferencias.</p>
-                <button onclick="seleccionarServicio('Ensamble')">
-                     Solicitar servicio
+                <button onclick="seleccionarServicio('Ensamble')">Solicitar servicio
+              </button>
             </div>
           </article>
 
@@ -458,7 +457,12 @@
 
           <input type="text" id="nombre" placeholder="Nombre" required>
           <input type="email" id="correo" placeholder="Correo" required>
-          <input type="text" id="servicio" placeholder="Servicio seleccionado" readonly>
+           <select id="servicio">
+            <option value="">Selecciona un servicio</option>
+            <option value="1">Ensamble de PC</option>
+            <option value="2">Reparación de Computadores</option>
+            <option value="3">Mantenimiento Preventivo</option>
+          </select>
           <textarea id="mensaje" placeholder="Describe tu problema"></textarea>
 
           <button type="submit">Enviar solicitud</button>
@@ -495,16 +499,16 @@
       </div>
       
       <form id="login-form" class="auth-form">
-        <div class="form-group">
-          <label>Correo electrónico</label>
-          <input type="email" placeholder="ejemplo@correo.com" required>
-        </div>
-        <div class="form-group">
-          <label>Contraseña</label>
-          <input type="password" placeholder="••••••••" required>
-        </div>
-        <button type="submit" class="auth-btn auth-btn--primary">Ingresar</button>
-      </form>
+  <div class="form-group">
+    <label>Correo electrónico</label>
+    <input type="email" id="login-email" placeholder="ejemplo@correo.com" required>
+  </div>
+  <div class="form-group">
+    <label>Contraseña</label>
+    <input type="password" id="login-password" placeholder="••••••••" required>
+  </div>
+  <button type="submit" class="auth-btn auth-btn--primary">Ingresar</button>
+</form>
 
       <form id="register-form" class="auth-form" style="display:none;">
         <div class="form-row">
@@ -547,143 +551,6 @@
   </div>
 
   <script src="app.js"></script>
-  <script>
-    /* === SCRIPT MODAL + VALIDACIÓN (ENCAPSULADO) === */
-    (function() {
-      const loginBtn = document.querySelector('.btn-login');
-      const modal = document.getElementById('auth-modal');
-      const closeBtn = modal?.querySelector('.auth-close');
-      const overlay = modal?.querySelector('.auth-overlay');
-      const tabs = document.querySelectorAll('.auth-tab');
-      const loginForm = document.getElementById('login-form');
-      const registerForm = document.getElementById('register-form');
-
-      if (!modal || !loginBtn) return;
-
-      function openModal() {
-        modal.classList.add('active');
-        modal.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-        // 🧹 LIMPIA TODO AL ABRIR
-        loginForm.reset();
-        registerForm.reset();
-        clearErrors(registerForm);
-      }
-
-      function closeModal() {
-        modal.classList.remove('active');
-        modal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-      }
-
-      loginBtn.addEventListener('click', openModal);
-      if(closeBtn) closeBtn.addEventListener('click', closeModal);
-      if(overlay) overlay.addEventListener('click', closeModal);
-      document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
-
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          tabs.forEach(t => t.classList.remove('active'));
-          tab.classList.add('active');
-          // 🧹 LIMPIA TODO AL CAMBIAR DE PESTAÑA
-          loginForm.reset();
-          registerForm.reset();
-          clearErrors(registerForm);
-
-          loginForm.style.display = tab.dataset.tab === 'login' ? 'flex' : 'none';
-          registerForm.style.display = tab.dataset.tab === 'register' ? 'flex' : 'none';
-        });
-      });
-
-      // Login simple
-      loginForm.addEventListener('submit', e => {
-        e.preventDefault();
-        alert('✅ Login listo para conectar con backend.');
-        loginForm.reset();
-        closeModal();
-      });
-
-      // Validación estricta del registro
-      registerForm.addEventListener('submit', e => {
-        e.preventDefault();
-        clearErrors(registerForm);
-
-        const name = document.getElementById('reg-name').value.trim();
-        const phone = document.getElementById('reg-phone').value.trim();
-        const email = document.getElementById('reg-email').value.trim();
-        const address = document.getElementById('reg-address').value.trim();
-        const pass = document.getElementById('reg-pass').value;
-        const confirm = document.getElementById('reg-confirm').value;
-
-        let isValid = true;
-
-        if (!/^[A-Za-zÁáÉéÍíÓóÚúÑñ\s]{3,50}$/.test(name)) {
-          showErr('err-name', 'Nombre: 3-50 caracteres, solo letras y espacios.'); isValid = false;
-        }
-        if (!/^\+?[0-9\s\-]{7,15}$/.test(phone)) {
-          showErr('err-phone', 'Teléfono: mínimo 7 dígitos válidos.'); isValid = false;
-        }
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          showErr('err-email', 'Correo: formato inválido (ej: usuario@dominio.com).'); isValid = false;
-        }
-        if (!/^[A-Za-z0-9\s.,#\-]{5,100}$/.test(address)) {
-          showErr('err-address', 'Dirección: mínimo 5 caracteres.'); isValid = false;
-        }
-        if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/.test(pass)) {
-          showErr('err-pass', 'Contraseña: mín 8 chars, 1 mayúscula, 1 minúscula, 1 número, 1 especial.'); isValid = false;
-        }
-        if (confirm !== pass || confirm === '') {
-          showErr('err-confirm', 'Las contraseñas no coinciden.'); isValid = false;
-        }
-
-        if (!isValid) return;
-
-        const btn = registerForm.querySelector('.auth-btn');
-        const originalText = btn.textContent;
-        btn.textContent = 'Procesando...';
-        btn.disabled = true;
-        btn.style.opacity = '0.7';
-
-        setTimeout(() => {
-          alert('✅ Registro exitoso. Todos los datos fueron validados correctamente.');
-          registerForm.reset();
-          clearErrors(registerForm);
-          btn.textContent = originalText;
-          btn.disabled = false;
-          btn.style.opacity = '1';
-          closeModal();
-        }, 1200);
-      });
-
-      // Limpiar error al escribir
-      registerForm.querySelectorAll('input').forEach(input => {
-        input.addEventListener('input', () => {
-          const errEl = input.parentElement.querySelector('.form-error');
-          if(errEl) errEl.classList.remove('visible');
-          input.classList.remove('error');
-        });
-      });
-
-      function showErr(id, msg) {
-        document.getElementById(id).textContent = msg;
-        document.getElementById(id).classList.add('visible');
-        document.getElementById(id).previousElementSibling.classList.add('error');
-      }
-
-      function clearErrors(form) {
-        form.querySelectorAll('.form-error').forEach(e => { e.textContent = ''; e.classList.remove('visible'); });
-        form.querySelectorAll('input').forEach(i => i.classList.remove('error'));
-      }
-
-      // Función de servicios
-      window.seleccionarServicio = function(servicio) {
-        const input = document.getElementById('servicio');
-        if(input) {
-          input.value = servicio;
-          document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
-        }
-      };
-    })();
-  </script>
+  
 </body>
 </html>

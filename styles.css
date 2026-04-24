@@ -42,10 +42,10 @@ img{
   display: block;
 }
 
-.container{
+.container {
   width: min(100% - 32px, var(--container));
   margin: 0 auto;
-  padding-inline: 80px;
+  padding-inline: 20px; /* antes 80px, eso rompía en pantallas pequeñas */
 }
 
 .site-header{
@@ -484,11 +484,10 @@ img{
     linear-gradient(180deg, #07101f 0%, #081223 100%);
 }
 
-.services-grid{
+.services-grid {
   display: grid;
   gap: 16px;
-  grid-template-columns: repeat(3, 1fr);
-  align-items: stretch;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 .service-card{
