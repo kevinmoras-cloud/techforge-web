@@ -28,7 +28,7 @@
       </button>
 
       <nav id="main-nav" class="nav" aria-label="Navegación principal">
-        <a href="#beneficios">Productos1</a>
+        <a href="#beneficios">Productos</a>
         <a href="#servicios">Servicios</a>
         <a href="#contacto" class="nav-cta">Contacto</a>
       </nav>
@@ -62,193 +62,287 @@
     
     <!-- aqui empieza la sona de los productos -->
      
-  <section id="beneficios" class="section products">
+<section id="beneficios" class="section products">
   <div class="container">
- 
+
     <div class="section-head">
       <span class="section-kicker-pill">Nuestros Productos</span>
       <h2>Componentes para armar o mejorar tu computadora</h2>
       <p>Una selección de productos con enfoque en rendimiento, compatibilidad y soporte técnico.</p>
     </div>
- 
-    <!--
-      ╔══════════════════════════════════════════════════════════════╗
-      ║  CONEXIÓN A BASE DE DATOS                                    ║
-      ║  Cuando conectes tu BD, este grid se genera dinámicamente.   ║
-      ║  El JS al final de esta sección usa el array `products`      ║
-      ║  — reemplázalo con la respuesta de tu API/fetch.             ║
-      ╚══════════════════════════════════════════════════════════════╝
-    -->
-    <div class="products-grid" id="productsGrid">
-      <!-- Las tarjetas se inyectan por JS (ver <script> abajo) -->
-    </div>
- 
+
+    <div class="products-grid">
+
+      <!-- ── Fila 1: Componentes principales ── -->
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Grafica.jpg" alt="Tarjeta Gráfica RTX 4060" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">GPU</span>
+          <p class="pc-name">Tarjeta Gráfica RTX 4060</p>
+          <p class="pc-desc">Potencia para juegos, edición de video y trabajo pesado.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$1.250.000</span>
+            <span class="pc-price-old">$1.480.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot"></div>
+            <span class="pc-stock-label">8 disponibles</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/cpu.png" alt="Procesador Ryzen 5 7600X" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">CPU</span>
+          <p class="pc-name">Procesador Ryzen 5 7600X</p>
+          <p class="pc-desc">Rendimiento estable para multitarea y productividad.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$870.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot"></div>
+            <span class="pc-stock-label">15 disponibles</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Memoria ram.jpg" alt="Memoria RAM DDR5 32GB" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">RAM</span>
+          <p class="pc-name">Memoria RAM DDR5 32GB</p>
+          <p class="pc-desc">Mayor velocidad y mejor respuesta del sistema operativo.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$420.000</span>
+            <span class="pc-price-old">$510.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot pc-stock-dot--low"></div>
+            <span class="pc-stock-label">¡Solo 2 en stock!</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/ssd.jpeg" alt="SSD NVMe 1TB Gen4" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">Almacenamiento</span>
+          <p class="pc-name">SSD NVMe 1TB Gen4</p>
+          <p class="pc-desc">Almacenamiento rápido, seguro y confiable. 7000 MB/s.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$340.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot pc-stock-dot--out"></div>
+            <span class="pc-stock-label">Agotado</span>
+          </div>
+          <button class="pc-btn pc-btn--out" disabled>Sin stock</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Placa madre.png" alt="Placa Base B650M Pro" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">Motherboard</span>
+          <p class="pc-name">Placa Base B650M Pro</p>
+          <p class="pc-desc">Compatibilidad total para distintas configuraciones AM5.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$690.000</span>
+            <span class="pc-price-old">$780.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot"></div>
+            <span class="pc-stock-label">6 disponibles</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
+
+      <!-- ── Fila 2: Refrigeración y estructura ── -->
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Funente de poder.jpg" alt="Fuente de Poder 750W" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">PSU</span>
+          <p class="pc-name">Fuente de Poder 750W 80+ Gold</p>
+          <p class="pc-desc">Alimentación estable y eficiente para equipos de alto rendimiento.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$310.000</span>
+            <span class="pc-price-old">$370.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot"></div>
+            <span class="pc-stock-label">12 disponibles</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Gabinete.jpg" alt="Gabinete ATX Mid-Tower" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">Gabinete</span>
+          <p class="pc-name">Gabinete ATX Mid-Tower</p>
+          <p class="pc-desc">Diseño moderno con excelente flujo de aire y gestión de cables.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$280.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot"></div>
+            <span class="pc-stock-label">7 disponibles</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Disipador de aire.png" alt="Disipador de Aire Dark Rock 4" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">Disipador · Aire</span>
+          <p class="pc-name">Disipador de Aire Dark Rock 4</p>
+          <p class="pc-desc">Refrigeración silenciosa y efectiva para CPUs de alto consumo.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$195.000</span>
+            <span class="pc-price-old">$230.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot pc-stock-dot--low"></div>
+            <span class="pc-stock-label">¡Solo 5 en stock!</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Disipador liquido.jpg" alt="Disipador Líquido AIO 240mm" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">Disipador · Líquido</span>
+          <p class="pc-name">Disipador Líquido AIO 240mm</p>
+          <p class="pc-desc">Refrigeración líquida all-in-one con radiador de 240mm y RGB.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$380.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot pc-stock-dot--low"></div>
+            <span class="pc-stock-label">¡Solo 3 en stock!</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Ventilador.jpg" alt="Ventiladores ARGB 120mm Pack x3" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">Ventiladores</span>
+          <p class="pc-name">Ventiladores ARGB 120mm (Pack x3)</p>
+          <p class="pc-desc">Flujo de aire optimizado con iluminación ARGB sincronizable.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$145.000</span>
+            <span class="pc-price-old">$170.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot pc-stock-dot--low"></div>
+            <span class="pc-stock-label">¡Solo 2 en stock!</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
+
+      <!-- ── Fila 3: Periféricos ── -->
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Teclado mecanico.webp" alt="Teclado Mecánico TKL RGB" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">Teclado</span>
+          <p class="pc-name">Teclado Mecánico TKL RGB</p>
+          <p class="pc-desc">Switches táctiles, retroiluminación RGB y diseño tenkeyless.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$220.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot"></div>
+            <span class="pc-stock-label">10 disponibles</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Mouse.png" alt="Mouse Gaming 16000 DPI" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">Mouse</span>
+          <p class="pc-name">Mouse Gaming 16000 DPI</p>
+          <p class="pc-desc">Sensor óptico de precisión, 7 botones programables y RGB.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$130.000</span>
+            <span class="pc-price-old">$155.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot"></div>
+            <span class="pc-stock-label">18 disponibles</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Mouse pad.jpg" alt="Mouse Pad XL 900x400mm" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">Mouse Pad</span>
+          <p class="pc-name">Mouse Pad XL 900×400mm</p>
+          <p class="pc-desc">Superficie de tela suave, base antideslizante y bordes cosidos.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$65.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot pc-stock-dot--out"></div>
+            <span class="pc-stock-label">Agotado</span>
+          </div>
+          <button class="pc-btn pc-btn--out" disabled>Sin stock</button>
+        </div>
+      </article>
+
+    </div><!-- /products-grid -->
+
     <p class="section-note">
       Todos nuestros productos cuentan con
       <strong>garantía oficial</strong> y
       <strong>soporte técnico especializado</strong>.
     </p>
- 
+
   </div>
 </section>
- 
- 
-<!-- ── SCRIPT: pega esto justo antes de </body> ── -->
-<script>
-  /*
-   * DATOS DE PRODUCTOS
-   * ------------------
-   * Por ahora son datos de ejemplo (hardcodeados).
-   * Cuando tengas tu backend listo, reemplaza este array con:
-   *
-   *   const products = await fetch('/api/productos').then(r => r.json());
-   *
-   * Cada objeto debe tener estas propiedades:
-   *   name      (string)  — nombre del producto
-   *   category  (string)  — categoría: GPU, CPU, RAM, SSD, Motherboard…
-   *   desc      (string)  — descripción corta
-   *   price     (string)  — precio formateado ej. "$1.250.000"
-   *   oldPrice  (string|null) — precio anterior tachado, o null si no aplica
-   *   stock     (number)  — unidades disponibles
-   *   stockMax  (number)  — stock máximo para calcular el umbral "pocas unidades"
-   *   img       (string)  — ruta de la imagen ej. "imagenes/grafica.jpeg"
-   */
-  const products = [
-    {
-      name:     "Tarjeta Gráfica RTX 4060",
-      category: "GPU",
-      desc:     "Potencia para juegos, edición de video y trabajo pesado.",
-      price:    "$1.250.000",
-      oldPrice: "$1.480.000",
-      stock:    8,
-      stockMax: 10,
-      img:      "imagenes/grafica.jpeg"
-    },
-    {
-      name:     "Procesador Ryzen 5 7600X",
-      category: "CPU",
-      desc:     "Rendimiento estable para multitarea y productividad.",
-      price:    "$870.000",
-      oldPrice: null,
-      stock:    15,
-      stockMax: 20,
-      img:      "imagenes/procesador.jpeg"
-    },
-    {
-      name:     "Memoria RAM DDR5 32GB",
-      category: "RAM",
-      desc:     "Mayor velocidad y mejor respuesta del sistema operativo.",
-      price:    "$420.000",
-      oldPrice: "$510.000",
-      stock:    2,
-      stockMax: 10,
-      img:      "imagenes/ram.jpeg"
-    },
-    {
-      name:     "SSD NVMe 1TB Gen4",
-      category: "Almacenamiento",
-      desc:     "Almacenamiento rápido, seguro y confiable. 7000 MB/s.",
-      price:    "$340.000",
-      oldPrice: null,
-      stock:    0,
-      stockMax: 10,
-      img:      "imagenes/ssd.jpeg"
-    },
-    {
-      name:     "Placa Base B650M Pro",
-      category: "Motherboard",
-      desc:     "Compatibilidad total para distintas configuraciones AM5.",
-      price:    "$690.000",
-      oldPrice: "$780.000",
-      stock:    6,
-      stockMax: 10,
-      img:      "imagenes/placa.jpeg"
-    }
-  ];
- 
-  /* ---- Función auxiliar: estado del stock ---- */
-  function getStockStatus(stock, stockMax) {
-    if (stock === 0)               return { label: "Agotado",             dotClass: "pc-stock-dot--out", isOut: true  };
-    if (stock <= stockMax * 0.25)  return { label: `¡Solo ${stock} en stock!`, dotClass: "pc-stock-dot--low", isOut: false };
-    return                                { label: `${stock} disponibles`, dotClass: "",                  isOut: false };
-  }
- 
-  /* ---- Renderiza las tarjetas ---- */
-  function renderProducts(list) {
-    const grid = document.getElementById("productsGrid");
-    grid.innerHTML = "";
- 
-    list.forEach(function(p) {
-      const st = getStockStatus(p.stock, p.stockMax);
- 
-      const card = document.createElement("article");
-      card.className = "product-card";
- 
-      card.innerHTML = `
-        <!-- Badge stock bajo -->
-        <span class="pc-badge pc-badge--low ${st.isOut || st.dotClass !== 'pc-stock-dot--low' ? 'pc-badge--hidden' : ''}">
-          ¡Últimas unidades!
-        </span>
- 
-        <!-- Badge oferta -->
-        <span class="pc-badge pc-badge--offer ${p.oldPrice ? '' : 'pc-badge--hidden'}">
-          Oferta
-        </span>
- 
-        <!-- Imagen -->
-        <div class="pc-img-wrap">
-          <img src="${p.img}" alt="${p.name}" loading="lazy"
-               onerror="this.style.display='none'">
-        </div>
- 
-        <!-- Cuerpo -->
-        <div class="pc-body">
-          <span class="pc-category">${p.category}</span>
-          <p class="pc-name">${p.name}</p>
-          <p class="pc-desc">${p.desc}</p>
- 
-          <div class="pc-price-row">
-            <span class="pc-price">${p.price}</span>
-            ${p.oldPrice ? `<span class="pc-price-old">${p.oldPrice}</span>` : ""}
-          </div>
- 
-          <div class="pc-stock-row">
-            <div class="pc-stock-dot ${st.dotClass}"></div>
-            <span class="pc-stock-label">${st.label}</span>
-          </div>
- 
-          <button
-            class="pc-btn ${st.isOut ? 'pc-btn--out' : ''}"
-            ${st.isOut ? "disabled" : ""}
-            onclick="agregarAlCarrito('${p.name}', '${p.price}')">
-            ${st.isOut ? "Sin stock" : "🛒 Agregar al carrito"}
-          </button>
-        </div>
-      `;
- 
-      grid.appendChild(card);
-    });
-  }
- 
-  /* ---- Acción del botón ---- */
-  function agregarAlCarrito(nombre, precio) {
-    /*
-     * CONECTAR CON TU LÓGICA DE CARRITO
-     * -----------------------------------
-     * Aquí puedes:
-     *  - Guardar en localStorage
-     *  - Hacer un POST a tu API
-     *  - Actualizar un contador en el header
-     *
-     * Por ahora solo muestra un alert de ejemplo:
-     */
-    alert(`✅ "${nombre}" agregado al carrito.\nPrecio: ${precio}`);
-  }
- 
-  /* ---- Punto de entrada ---- */
-  renderProducts(products);
-</script>
-
 
     <!-- hasta aqui va la sona de los productos -->
 
@@ -332,7 +426,12 @@
 
     </div>
 
-
+    <!-- BOTÓN -->
+    <div style="text-align:center; margin-top: 25px;">
+      <a href="#servicios" class="btn btn-primary">
+        Solicitar servicio ahora
+      </a>
+    </div>
 
   </div>
 </section>
@@ -382,4 +481,4 @@
 
 <script src="app.js"></script>
 </body>
-</html> 
+</html>
