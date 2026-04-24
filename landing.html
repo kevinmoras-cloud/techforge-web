@@ -3,69 +3,352 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TechForge — Componentes y Servicios Tech</title>
+  <title>TechForge</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <!-- HEADER -->
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="#inicio" aria-label="Ir al inicio">
+      <a class="brand" href="#" aria-label="Ir al inicio">
         <span class="brand-mark" aria-hidden="true"></span>
         <span class="brand-name">TechForge</span>
       </a>
 
-      <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-controls="main-nav" aria-expanded="false">
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-label="Abrir menú"
+        aria-controls="main-nav"
+        aria-expanded="false"
+      >
         <span class="bar" aria-hidden="true"></span>
         <span class="bar" aria-hidden="true"></span>
         <span class="bar" aria-hidden="true"></span>
       </button>
 
       <nav id="main-nav" class="nav" aria-label="Navegación principal">
-        <a href="#beneficios" class="nav-link">Productos</a>
-        <a href="#servicios" class="nav-link">Servicios</a>
-        <a href="#contacto" class="nav-link nav-cta">Contacto</a>
-        <button type="button" class="nav-link btn-login" aria-haspopup="dialog">Iniciar Sesión / Registrarse</button>
+        <a href="#beneficios">Productos</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#contacto" class="nav-cta">Contacto</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <!-- HERO -->
-    <section class="hero" id="inicio">
+    <section class="hero">
       <div class="container hero-grid">
         <div class="hero-left">
-          <p class="eyebrow fade-up">Componentes, soporte y ensambles</p>
-          <h1 class="fade-up delay-1">Tu tienda tech con estilo profesional y energía gamer.</h1>
-          <p class="hero-text fade-up delay-2">Encuentra tarjetas gráficas, procesadores, memorias RAM, discos y servicios técnicos especializados para mejorar tu PC.</p>
-          <div class="hero-actions fade-up delay-3">
+          <p class="eyebrow">Componentes, soporte y ensambles</p>
+          <h1>Tu tienda tech con estilo profesional y energía gamer.</h1>
+          <p class="hero-text">
+            Encuentra tarjetas gráficas, procesadores, memorias RAM, discos y servicios técnicos especializados para mejorar tu PC.
+          </p>
+          <div class="hero-actions">
             <a href="#beneficios" class="btn btn-primary">Explorar Productos</a>
             <a href="#servicios" class="btn btn-secondary">Ver Servicios</a>
           </div>
         </div>
-        <div class="hero-right fade-scale" aria-hidden="true">
-          <div class="hero-image-wrapper">
-            <img src="imagenes/LOGO.jpeg" alt="Logo TechForge">
+
+        <div class="hero-right" aria-hidden="true">
+          <img src="imagenes/LOGO.jpeg" alt="">
+
           </div>
         </div>
       </div>
     </section>
+    <!-- hasta aqui es la parte del header y donde termina el encabezado -->
 
-    <!-- PRODUCTOS -->
-    <section id="beneficios" class="section products">
-      <div class="container">
-        <div class="section-head">
-          <span class="section-kicker-pill">Nuestros Productos</span>
-          <h2>Componentes para armar o mejorar tu computadora</h2>
-          <p>Una selección de productos con enfoque en rendimiento, compatibilidad y soporte técnico.</p>
+    
+    <!-- aqui empieza la sona de los productos -->
+     
+<section id="beneficios" class="section products">
+  <div class="container">
+
+    <div class="section-head">
+      <span class="section-kicker-pill">Nuestros Productos</span>
+      <h2>Componentes para armar o mejorar tu computadora</h2>
+      <p>Una selección de productos con enfoque en rendimiento, compatibilidad y soporte técnico.</p>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- ── Fila 1: Componentes principales ── -->
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Grafica.jpg" alt="Tarjeta Gráfica RTX 4060" loading="lazy">
         </div>
-        <div class="products-grid" id="productsGrid"></div>
-        <p class="section-note">Todos nuestros productos cuentan con <strong>garantía oficial</strong> y <strong>soporte técnico especializado</strong>.</p>
-      </div>
-    </section>
+        <div class="pc-body">
+          <span class="pc-category">GPU</span>
+          <p class="pc-name">Tarjeta Gráfica RTX 4060</p>
+          <p class="pc-desc">Potencia para juegos, edición de video y trabajo pesado.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$1.250.000</span>
+            <span class="pc-price-old">$1.480.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot"></div>
+            <span class="pc-stock-label">8 disponibles</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
 
-    <!-- SERVICIOS -->
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/cpu.png" alt="Procesador Ryzen 5 7600X" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">CPU</span>
+          <p class="pc-name">Procesador Ryzen 5 7600X</p>
+          <p class="pc-desc">Rendimiento estable para multitarea y productividad.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$870.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot"></div>
+            <span class="pc-stock-label">15 disponibles</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Memoria ram.jpg" alt="Memoria RAM DDR5 32GB" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">RAM</span>
+          <p class="pc-name">Memoria RAM DDR5 32GB</p>
+          <p class="pc-desc">Mayor velocidad y mejor respuesta del sistema operativo.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$420.000</span>
+            <span class="pc-price-old">$510.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot pc-stock-dot--low"></div>
+            <span class="pc-stock-label">¡Solo 2 en stock!</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/ssd.jpeg" alt="SSD NVMe 1TB Gen4" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">Almacenamiento</span>
+          <p class="pc-name">SSD NVMe 1TB Gen4</p>
+          <p class="pc-desc">Almacenamiento rápido, seguro y confiable. 7000 MB/s.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$340.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot pc-stock-dot--out"></div>
+            <span class="pc-stock-label">Agotado</span>
+          </div>
+          <button class="pc-btn pc-btn--out" disabled>Sin stock</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Placa madre.png" alt="Placa Base B650M Pro" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">Motherboard</span>
+          <p class="pc-name">Placa Base B650M Pro</p>
+          <p class="pc-desc">Compatibilidad total para distintas configuraciones AM5.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$690.000</span>
+            <span class="pc-price-old">$780.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot"></div>
+            <span class="pc-stock-label">6 disponibles</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
+
+      <!-- ── Fila 2: Refrigeración y estructura ── -->
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Funente de poder.jpg" alt="Fuente de Poder 750W" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">PSU</span>
+          <p class="pc-name">Fuente de Poder 750W 80+ Gold</p>
+          <p class="pc-desc">Alimentación estable y eficiente para equipos de alto rendimiento.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$310.000</span>
+            <span class="pc-price-old">$370.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot"></div>
+            <span class="pc-stock-label">12 disponibles</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Gabinete.jpg" alt="Gabinete ATX Mid-Tower" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">Gabinete</span>
+          <p class="pc-name">Gabinete ATX Mid-Tower</p>
+          <p class="pc-desc">Diseño moderno con excelente flujo de aire y gestión de cables.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$280.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot"></div>
+            <span class="pc-stock-label">7 disponibles</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Disipador de aire.png" alt="Disipador de Aire Dark Rock 4" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">Disipador · Aire</span>
+          <p class="pc-name">Disipador de Aire Dark Rock 4</p>
+          <p class="pc-desc">Refrigeración silenciosa y efectiva para CPUs de alto consumo.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$195.000</span>
+            <span class="pc-price-old">$230.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot pc-stock-dot--low"></div>
+            <span class="pc-stock-label">¡Solo 5 en stock!</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Disipador liquido.jpg" alt="Disipador Líquido AIO 240mm" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">Disipador · Líquido</span>
+          <p class="pc-name">Disipador Líquido AIO 240mm</p>
+          <p class="pc-desc">Refrigeración líquida all-in-one con radiador de 240mm y RGB.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$380.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot pc-stock-dot--low"></div>
+            <span class="pc-stock-label">¡Solo 3 en stock!</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Ventilador.jpg" alt="Ventiladores ARGB 120mm Pack x3" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">Ventiladores</span>
+          <p class="pc-name">Ventiladores ARGB 120mm (Pack x3)</p>
+          <p class="pc-desc">Flujo de aire optimizado con iluminación ARGB sincronizable.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$145.000</span>
+            <span class="pc-price-old">$170.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot pc-stock-dot--low"></div>
+            <span class="pc-stock-label">¡Solo 2 en stock!</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
+
+      <!-- ── Fila 3: Periféricos ── -->
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Teclado mecanico.webp" alt="Teclado Mecánico TKL RGB" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">Teclado</span>
+          <p class="pc-name">Teclado Mecánico TKL RGB</p>
+          <p class="pc-desc">Switches táctiles, retroiluminación RGB y diseño tenkeyless.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$220.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot"></div>
+            <span class="pc-stock-label">10 disponibles</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Mouse.png" alt="Mouse Gaming 16000 DPI" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">Mouse</span>
+          <p class="pc-name">Mouse Gaming 16000 DPI</p>
+          <p class="pc-desc">Sensor óptico de precisión, 7 botones programables y RGB.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$130.000</span>
+            <span class="pc-price-old">$155.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot"></div>
+            <span class="pc-stock-label">18 disponibles</span>
+          </div>
+          <button class="pc-btn">🛒 Agregar al carrito</button>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="pc-img-wrap">
+          <img src="imagenes/Mouse pad.jpg" alt="Mouse Pad XL 900x400mm" loading="lazy">
+        </div>
+        <div class="pc-body">
+          <span class="pc-category">Mouse Pad</span>
+          <p class="pc-name">Mouse Pad XL 900×400mm</p>
+          <p class="pc-desc">Superficie de tela suave, base antideslizante y bordes cosidos.</p>
+          <div class="pc-price-row">
+            <span class="pc-price">$65.000</span>
+          </div>
+          <div class="pc-stock-row">
+            <div class="pc-stock-dot pc-stock-dot--out"></div>
+            <span class="pc-stock-label">Agotado</span>
+          </div>
+          <button class="pc-btn pc-btn--out" disabled>Sin stock</button>
+        </div>
+      </article>
+
+    </div><!-- /products-grid -->
+
+    <p class="section-note">
+      Todos nuestros productos cuentan con
+      <strong>garantía oficial</strong> y
+      <strong>soporte técnico especializado</strong>.
+    </p>
+
+  </div>
+</section>
+
+    <!-- hasta aqui va la sona de los productos -->
+
+
+    <!-- aqui es la sona de los servicios que brindamos -->
+
     <section id="servicios" class="section services">
       <div class="container">
         <div class="section-head dark">
@@ -73,283 +356,129 @@
           <h2>Además de vender componentes, también resolvemos problemas</h2>
           <p>Ensamble, reparación y mantenimiento preventivo para equipos de hogar, estudio y trabajo.</p>
         </div>
+
         <div class="services-grid">
           <article class="service-card">
-            <img src="imagenes/ensamble.jpeg" alt="Ensamble de PC">
+            <div class="service-image build"></div>
+            <img src="imagenes/ensamble.jpeg" alt="">
             <div class="service-body">
               <h3>Ensamble de PC Personalizados</h3>
               <p>Diseño y armado de equipos según presupuesto, uso y preferencias.</p>
+                <button onclick="seleccionarServicio('Ensamble')">
+                     Solicitar servicio
             </div>
           </article>
+
           <article class="service-card">
-            <img src="imagenes/diagnostico.jpeg" alt="Diagnóstico técnico">
+            <div class="service-image repair"></div>
+            <img src="imagenes/diagnostico.jpeg" alt="">
             <div class="service-body">
               <h3>Reparación de Computadores</h3>
               <p>Diagnóstico y solución de fallas de hardware y software.</p>
+                <button onclick="seleccionarServicio('Reparación')">Solicitar servicio</button>
             </div>
           </article>
+
           <article class="service-card">
-            <img src="imagenes/servicio.jpeg" alt="Mantenimiento preventivo">
+            <div class="service-image maintenance"></div>
+            <img src="imagenes/servicio.jpeg" alt="">
             <div class="service-body">
               <h3>Mantenimiento Preventivo</h3>
               <p>Limpieza, cambio de pasta térmica y optimización general del sistema.</p>
+                <button onclick="seleccionarServicio('Mantenimiento')">Solicitar servicio</button>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- BENEFICIOS -->
-    <section id="testimonio" class="section testimonial">
-      <div class="container">
-        <div class="section-head light">
-          <p class="section-kicker">¿Por qué elegirnos?</p>
-          <h2>Confiabilidad, asesoría y calidad en cada detalle</h2>
-        </div>
-        <div class="testimonial-box">
-          <ul class="reasons">
-            <li>Componentes de alta calidad</li>
-            <li>Técnicos especializados en hardware</li>
-            <li>Garantía en productos y servicios</li>
-            <li>Asesoría personalizada</li>
-            <li>Precios competitivos</li>
-          </ul>
-          <div class="trust-badge">
-            <span class="trust-small">COMPONENTES</span>
-            <span class="trust-big">100%</span>
-            <span class="trust-small accent">Confiables</span>
-          </div>
-        </div>
-      </div>
-    </section>
+    
+    <!-- aqui termina la sona de los servivcios -->
 
-    <!-- CONTACTO -->
-    <section id="contacto" class="section cta">
-      <div class="container cta-grid">
-        <div class="cta-left">
-          <p class="section-kicker">Promociones y Ofertas</p>
-          <h2>Aprovecha ofertas especiales en componentes y accesorios para PC</h2>
-          <p>Escríbenos para cotizaciones, disponibilidad de productos y soporte técnico.</p>
-          <div class="contact-card">
-            <p><strong>Correo:</strong> Soporte@techforge.com</p>
-            <p><strong>Teléfono:</strong> +57 3188154344</p>
-            <p><strong>Dirección:</strong> Ibagué, Colombia</p>
-          </div>
-        </div>
-        <div class="cta-right" aria-hidden="true">
-          <img src="imagenes/final.png" alt="Promoción TechForge">
-        </div>
-      </div>
-    </section>
-  </main>
+    
+<!-- zona de beneficios -->
 
-  <!-- MODAL LOGIN -->
-  <div id="auth-modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="modal-overlay"></div>
-    <div class="modal-content">
-      <button class="modal-close" aria-label="Cerrar">&times;</button>
-      <div class="modal-body">
-        <h2>Bienvenido a TechForge</h2>
-        <p>Accede a tu cuenta o crea una nueva</p>
-        <div class="auth-tabs">
-          <button class="auth-tab active" data-tab="login">Iniciar Sesión</button>
-          <button class="auth-tab" data-tab="register">Registrarse</button>
-        </div>
-        <form id="login-form" class="auth-form" novalidate>
-          <input type="email" id="login-email" placeholder="Correo electrónico" required>
-          <input type="password" id="login-pass" placeholder="Contraseña" required>
-          <button type="submit" class="btn btn-primary">Ingresar</button>
-        </form>
-        <form id="register-form" class="auth-form" style="display:none" novalidate>
-          <div class="form-group">
-            <input type="text" id="reg-name" placeholder="Nombre completo" required>
-            <small class="error-msg" id="err-name"></small>
-          </div>
-          <div class="form-group">
-            <input type="email" id="reg-email" placeholder="Correo electrónico" required>
-            <small class="error-msg" id="err-email"></small>
-          </div>
-          <div class="form-group">
-            <input type="password" id="reg-password" placeholder="Contraseña" required>
-            <small class="error-msg" id="err-password"></small>
-          </div>
-          <div class="form-group">
-            <input type="password" id="reg-confirm" placeholder="Confirmar contraseña" required>
-            <small class="error-msg" id="err-confirm"></small>
-          </div>
-          <button type="submit" class="btn btn-primary">Crear Cuenta</button>
-        </form>
-      </div>
+<section id="testimonio" class="section testimonial">
+  <div class="container">
+
+    <div class="section-head light">
+      <p class="section-kicker">¿Por qué elegirnos?</p>
+      <h2>Confiabilidad, asesoría y calidad en cada detalle</h2>
     </div>
+
+    <div class="testimonial-box">
+
+      <!-- LISTA DE BENEFICIOS -->
+      <ul class="reasons animar">
+        <li>Componentes de alta calidad</li>
+        <li>Técnicos especializados en hardware</li>
+        <li>Garantía en productos y servicios</li>
+        <li>Asesoría personalizada</li>
+        <li>Precios competitivos</li>
+      </ul>
+
+      <!-- CÍRCULO -->
+      <div class="trust-badge animar">
+        <span class="trust-small">COMPONENTES</span>
+        <span class="trust-big">0%</span>
+        <span class="trust-small accent">Confiables</span>
+      </div>
+
+    </div>
+
+    <!-- BOTÓN -->
+    <div style="text-align:center; margin-top: 25px;">
+      <a href="#servicios" class="btn btn-primary">
+        Solicitar servicio ahora
+      </a>
+    </div>
+
   </div>
+</section>
 
-  <footer class="footer">
-    <div class="container" style="text-align: center; padding: 32px 0;">
-      <p>&copy; 2024 TechForge. Todos los derechos reservados.</p>
+<!-- fin beneficios -->
+
+    
+<!-- SECCIÓN CONTACTO -->
+<section id="contacto" class="section cta">
+  <div class="container cta-grid">
+
+    <div class="cta-left">
+      <h2>Aprovecha ofertas especiales en componentes y accesorios para PC</h2>
+      <p>Escríbenos para cotizaciones, disponibilidad de productos y soporte técnico.</p>
+
+      <div class="contact-card">
+
+        <p><strong>Correo:</strong> Soporte@techforge.com</p>
+        <p><strong>Teléfono:</strong> +57 3188154344</p>
+        <p><strong>Dirección:</strong> Ibagué, Colombia</p>
+
+        <form id="formContacto">
+
+          <input type="text" id="nombre" placeholder="Nombre" required>
+          <input type="email" id="correo" placeholder="Correo" required>
+          <input type="text" id="servicio" placeholder="Servicio seleccionado" readonly>
+          <textarea id="mensaje" placeholder="Describe tu problema"></textarea>
+
+          <button type="submit">Enviar solicitud</button>
+
+        </form>
+
+      </div>
     </div>
-  </footer>
 
-  <!-- SCRIPT -->
-  <script>
-    // Navegación móvil
-    const navToggle = document.querySelector('.nav-toggle');
-    const mainNav = document.getElementById('main-nav');
-    navToggle.addEventListener('click', () => {
-      const isOpen = mainNav.classList.toggle('open');
-      navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    });
+    <div class="cta-right">
+      <img src="imagenes/final.png" alt="">
+    </div>
 
-    // Modal Auth
-    const authBtn = document.querySelector('.btn-login');
-    const modal = document.getElementById('auth-modal');
-    const modalClose = modal.querySelector('.modal-close');
-    const modalOverlay = modal.querySelector('.modal-overlay');
-    const tabs = document.querySelectorAll('.auth-tab');
-    const loginForm = document.getElementById('login-form');
-    const registerForm = document.getElementById('register-form');
+  </div>
+</section>
 
-    function openModal() {
-      modal.classList.add('active');
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeModal() {
-      modal.classList.remove('active');
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
+<!-- BOTÓN WHATSAPP -->
+<a href="https://wa.me/573176065800" class="whatsapp-float" target="_blank">
+  <img src="imagenes/whatsapp.png" alt="WhatsApp">
+</a>
 
-    authBtn.addEventListener('click', openModal);
-    modalClose.addEventListener('click', closeModal);
-    modalOverlay.addEventListener('click', closeModal);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        loginForm.style.display = tab.dataset.tab === 'login' ? 'flex' : 'none';
-        registerForm.style.display = tab.dataset.tab === 'register' ? 'flex' : 'none';
-      });
-    });
-
-    function clearErrors(form) {
-      form.querySelectorAll('input').forEach(i => i.classList.remove('error', 'success'));
-      form.querySelectorAll('.error-msg').forEach(e => { e.textContent = ''; e.classList.remove('visible'); });
-    }
-
-    registerForm.addEventListener('submit', e => {
-      e.preventDefault();
-      clearErrors(registerForm);
-      const name = document.getElementById('reg-name');
-      const email = document.getElementById('reg-email');
-      const password = document.getElementById('reg-password');
-      const confirm = document.getElementById('reg-confirm');
-      const errName = document.getElementById('err-name');
-      const errEmail = document.getElementById('err-email');
-      const errPassword = document.getElementById('err-password');
-      const errConfirm = document.getElementById('err-confirm');
-      let isValid = true;
-
-      const nameRegex = /^[A-Za-zÁáÉéÍíÓóÚúÑñ\s]{3,50}$/;
-      if (!nameRegex.test(name.value.trim())) {
-        errName.textContent = 'El nombre debe tener entre 3 y 50 caracteres, solo letras.';
-        errName.classList.add('visible'); name.classList.add('error'); isValid = false;
-      }
-
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email.value.trim())) {
-        errEmail.textContent = 'Ingresa un correo válido (ej: usuario@dominio.com).';
-        errEmail.classList.add('visible'); email.classList.add('error'); isValid = false;
-      }
-
-      const passRegex = /^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
-      if (!passRegex.test(password.value)) {
-        errPassword.textContent = 'Mínimo 8 caracteres, 1 mayúscula, 1 número y 1 especial.';
-        errPassword.classList.add('visible'); password.classList.add('error'); isValid = false;
-      }
-
-      if (confirm.value !== password.value || confirm.value === '') {
-        errConfirm.textContent = 'Las contraseñas no coinciden.';
-        errConfirm.classList.add('visible'); confirm.classList.add('error'); isValid = false;
-      }
-
-      if (!isValid) return;
-
-      const btn = registerForm.querySelector('button[type="submit"]');
-      const originalText = btn.textContent;
-      btn.textContent = '✅ Creando cuenta...'; btn.disabled = true; btn.style.opacity = '0.7';
-
-      setTimeout(() => {
-        registerForm.reset(); clearErrors(registerForm);
-        btn.textContent = originalText; btn.disabled = false; btn.style.opacity = '1';
-        closeModal();
-        alert('✅ ¡Cuenta creada exitosamente!');
-      }, 1400);
-    });
-
-    loginForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const email = document.getElementById('login-email').value.trim();
-      const pass = document.getElementById('login-pass').value;
-      if (!email || !pass) { alert('⚠️ Completa todos los campos.'); return; }
-      const btn = loginForm.querySelector('button[type="submit"]');
-      btn.textContent = '✅ Ingresando...'; btn.disabled = true;
-      setTimeout(() => {
-        loginForm.reset(); btn.textContent = 'Ingresar'; btn.disabled = false;
-        closeModal(); alert('✅ Sesión iniciada');
-      }, 1000);
-    });
-
-    const products = [
-      { name: "Tarjeta Gráfica RTX 4060", category: "GPU", desc: "Potencia para juegos y edición.", price: "$1.250.000", oldPrice: "$1.480.000", stock: 8, stockMax: 10, img: "imagenes/grafica.jpeg" },
-      { name: "Procesador Ryzen 5 7600X", category: "CPU", desc: "Rendimiento estable.", price: "$870.000", oldPrice: null, stock: 15, stockMax: 20, img: "imagenes/procesador.jpeg" },
-      { name: "Memoria RAM DDR5 32GB", category: "RAM", desc: "Velocidad y multitarea.", price: "$420.000", oldPrice: "$510.000", stock: 2, stockMax: 10, img: "imagenes/ram.jpeg" },
-      { name: "SSD NVMe 1TB Gen4", category: "Almacenamiento", desc: "7000 MB/s.", price: "$340.000", oldPrice: null, stock: 0, stockMax: 10, img: "imagenes/ssd.jpeg" },
-      { name: "Placa Base B650M Pro", category: "Motherboard", desc: "Compatibilidad AM5.", price: "$690.000", oldPrice: "$780.000", stock: 6, stockMax: 10, img: "imagenes/placa.jpeg" }
-    ];
-
-    function getStockStatus(stock, stockMax) {
-      if (stock === 0) return { label: "Agotado", dotClass: "pc-stock-dot--out", isOut: true };
-      if (stock <= stockMax * 0.25) return { label: `¡Solo ${stock}!`, dotClass: "pc-stock-dot--low", isOut: false };
-      return { label: `${stock} disponibles`, dotClass: "", isOut: false };
-    }
-
-    function renderProducts(list) {
-      const grid = document.getElementById("productsGrid");
-      grid.innerHTML = "";
-      list.forEach(p => {
-        const st = getStockStatus(p.stock, p.stockMax);
-        const card = document.createElement("article");
-        card.className = "product-card";
-        card.innerHTML = `
-          <span class="pc-badge pc-badge--low ${st.dotClass === 'pc-stock-dot--low' ? '' : 'pc-badge--hidden'}">
-            ${st.dotClass === 'pc-stock-dot--low' ? '¡Últimas unidades!' : ''}
-          </span>
-          <span class="pc-badge pc-badge--offer ${p.oldPrice ? '' : 'pc-badge--hidden'}">
-            ${p.oldPrice ? 'Oferta' : ''}
-          </span>
-          <div class="pc-img-wrap"><img src="${p.img}" alt="${p.name}" loading="lazy"></div>
-          <div class="pc-body">
-            <span class="pc-category">${p.category}</span>
-            <p class="pc-name">${p.name}</p>
-            <p class="pc-desc">${p.desc}</p>
-            <div class="pc-price-row">
-              <span class="pc-price">${p.price}</span>
-              ${p.oldPrice ? `<span class="pc-price-old">${p.oldPrice}</span>` : ""}
-            </div>
-            <div class="pc-stock-row">
-              <div class="pc-stock-dot ${st.dotClass}"></div>
-              <span class="pc-stock-label">${st.label}</span>
-            </div>
-            <button class="pc-btn ${st.isOut ? 'pc-btn--out' : ''}" ${st.isOut ? "disabled" : ""} onclick="alert('Carrito actualizado: ${p.name}')">
-              ${st.isOut ? "Sin stock" : "🛒 Agregar"}
-            </button>
-          </div>`;
-        grid.appendChild(card);
-      });
-    }
-    renderProducts(products);
-  </script>
+<script src="app.js"></script>
 </body>
 </html>
