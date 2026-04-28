@@ -31,42 +31,47 @@ function setSelectedService(servicio) {
 function renderTarjetaProducto(p) {
   const agotado = p.stock === 0;
 
-  const precioAnteriorHTML = p.precio_anterior
-    ? `<span class="producto-precio-ant">$${Number(p.precio_anterior).toLocaleString("es-CO")}</span>`
-    : "";
-
-  const stockHTML = agotado
-    ? `<span class="producto-stock agotado">Agotado</span>`
-    : `<span class="producto-stock disponible">${p.stock} disponible${p.stock !== 1 ? "s" : ""}</span>`;
-
-  const btnHTML = agotado
-    ? `<button class="btn-producto" disabled>No disponible</button>`
-    : `<button class="btn-producto" onclick="seleccionarServicio('Ensamble')">Cotizar</button>`;
-
-  const imagenHTML = p.imagen
-    ? `<img src="${p.imagen}" alt="${p.nombre}" loading="lazy" onerror="this.src='https://placehold.co/400x260?text=Sin+imagen'">`
-    : `<div class="producto-img-placeholder">📦</div>`;
-
   return `
-    <article class="producto-card${agotado ? " agotado" : ""}">
-      <div class="producto-img">
-        ${imagenHTML}
-        ${agotado ? '<div class="producto-overlay-agotado">Agotado</div>' : ""}
+    <article class="product-card">
+
+      <div class="pc-img-wrap">
+        <img src="imagenes/${p.imagen}" 
+             alt="${p.nombre}" 
+             onerror="this.src='https://placehold.co/400x400?text=Sin+imagen'">
       </div>
-      <div class="producto-info">
-        <span class="producto-categoria">${p.categoria || ""}</span>
-        <h3 class="producto-nombre">${p.nombre}</h3>
-        ${p.descripcion ? `<p class="producto-desc">${p.descripcion}</p>` : ""}
-        <div class="producto-precios">
-          ${precioAnteriorHTML}
-          <span class="producto-precio">$${Number(p.precio).toLocaleString("es-CO")}</span>
+
+      <div class="pc-body">
+
+        <span class="pc-category">Producto</span>
+
+        <h3 class="pc-name">${p.nombre}</h3>
+
+        <p class="pc-desc">${p.descripcion || ""}</p>
+
+        <div class="pc-price-row">
+          <span class="pc-price">$${Number(p.precio).toLocaleString("es-CO")}</span>
         </div>
-        <div class="producto-footer">
-          ${stockHTML}
-          ${btnHTML}
+
+        <div class="pc-stock-row">
+          <span class="pc-stock-dot 
+            ${agotado ? "pc-stock-dot--out" : p.stock <= 5 ? "pc-stock-dot--low" : ""}">
+          </span>
+
+          <span class="pc-stock-label">
+            ${agotado ? "Agotado" : `${p.stock} disponibles`}
+          </span>
         </div>
+
+        <button class="pc-btn" 
+          ${agotado ? "disabled" : ""}
+          onclick="seleccionarServicio('Ensamble')">
+          ${agotado ? "No disponible" : "Cotizar"}
+        </button>
+
       </div>
-    </article>`;
+
+    </article>
+  `;
 }
 
 async function cargarProductosLanding() {
@@ -80,7 +85,6 @@ async function cargarProductosLanding() {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const productos = await res.json();
 
-    // Solo mostrar productos activos en la landing
     const activos = productos.filter((p) => p.estado === "activo");
 
     if (activos.length === 0) {

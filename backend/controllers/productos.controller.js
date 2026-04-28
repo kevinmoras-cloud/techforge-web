@@ -3,28 +3,11 @@ const db = require("../db");
 // ================= LISTAR PRODUCTOS =================
 exports.listarProductos = async (req, res) => {
   try {
-    const [results] = await db.query(`
-      SELECT
-        p.id,
-        p.nombre,
-        p.descripcion,
-        p.precio,
-        p.precio_anterior,
-        p.stock,
-        p.imagen,
-        p.estado,
-        p.created_at,
-        p.updated_at,
-        c.nombre AS categoria
-      FROM productos p
-      LEFT JOIN categorias c ON p.categoria_id = c.id
-      ORDER BY p.id DESC
-    `);
-
-    return res.json(results);
+    const [results] = await db.query("SELECT * FROM productos");
+    res.json(results);
   } catch (error) {
-    console.error("❌ Error en listarProductos:", error);
-    return res.status(500).json({ mensaje: "Error al obtener productos" });
+    console.error("❌ ERROR REAL:", error);
+    res.status(500).json({ mensaje: "Error al obtener productos" });
   }
 };
 
