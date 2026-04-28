@@ -72,6 +72,7 @@ img{
   gap: 12px;
   font-weight: 800;
   letter-spacing: .2px;
+  margin: 0px 20px;
 }
 
 .brand-mark {
@@ -83,7 +84,7 @@ img{
 }
 
 .brand-name{
-  font-size: 1.05rem;
+  font-size: 2.05rem;
 }
 
 .nav{
@@ -520,7 +521,34 @@ img{
   flex-direction: column;
   flex-grow: 1;
 }
-.service-body button { margin-top: auto; }
+
+
+.btn-servicio{
+  background: linear-gradient(135deg, #4ea3ff, #7b5cff);
+    color: white;
+    border: none;
+    padding: 13px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    display: block;
+    margin: 30px auto;
+    padding: 16px 50px;
+}
+
+
+.btn-enviarSolicitud{
+    background: linear-gradient(135deg, #4ea3ff, #7b5cff);
+    color: white;
+    border: none;
+    padding: 13px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    display: block;
+    margin: 30px auto;
+    padding: 16px 50px;
+}
 
 .service-body h3{
   margin: 0 0 8px;
@@ -531,6 +559,7 @@ img{
   margin: 0;
   color: var(--muted);
   line-height: 1.65;
+  padding: 7px;
 }
 
 .testimonial{
@@ -720,6 +749,7 @@ img{
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin: 30px 90px;
 }
 
 #formContacto input,
@@ -735,16 +765,7 @@ img{
   height: 80px;
 }
 
-#formContacto button,
-.service-body button {
-  background: linear-gradient(135deg, #4ea3ff, #7b5cff);
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
+
 
 #formContacto button:hover,
 .service-body button:hover {
@@ -914,3 +935,5 @@ img{
   border-radius: 18px;
   box-shadow: var(--shadow);
 }
+
+

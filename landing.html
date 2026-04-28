@@ -11,21 +11,9 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="#inicio" aria-label="Ir al inicio">
-        <span class="brand-mark" aria-hidden="true"></span>
         <span class="brand-name">TechForge</span>
       </a>
 
-      <button
-        class="nav-toggle"
-        type="button"
-        aria-label="Abrir menú"
-        aria-controls="main-nav"
-        aria-expanded="false"
-      >
-        <span class="bar" aria-hidden="true"></span>
-        <span class="bar" aria-hidden="true"></span>
-        <span class="bar" aria-hidden="true"></span>
-      </button>
 
       <nav id="main-nav" class="nav" aria-label="Navegación principal">
         <a href="#beneficios" class="nav-link">Productos</a>
@@ -360,35 +348,35 @@
 
         <div class="services-grid">
           <article class="service-card">
-            <img src="imagenes/ensamble.jpeg" alt="Ensamble de PC"> 
+            <img src="imagenes/ensambe de pc .PNG" alt="Ensamble de PC"> 
             <div class="service-body">
               <h3>Ensamble de PC Personalizados</h3>
               <p>Diseño y armado de equipos según presupuesto, uso y preferencias.</p>
-                <button onclick="seleccionarServicio('Ensamble')">Solicitar servicio
-              </button>
             </div>
           </article>
 
           <article class="service-card">
             <div class="service-image repair"></div>
-            <img src="imagenes/diagnostico.jpeg" alt="">
+            <img src="imagenes/reparacion pc.png" alt="">
             <div class="service-body">
               <h3>Reparación de Computadores</h3>
               <p>Diagnóstico y solución de fallas de hardware y software.</p>
-                <button onclick="seleccionarServicio('Reparación')">Solicitar servicio</button>
+                
             </div>
           </article>
 
           <article class="service-card">
             <div class="service-image maintenance"></div>
-            <img src="imagenes/servicio.jpeg" alt="">
+            <img src="imagenes/mantenimiento pre.png" alt="">
             <div class="service-body">
               <h3>Mantenimiento Preventivo</h3>
               <p>Limpieza, cambio de pasta térmica y optimización general del sistema.</p>
-                <button onclick="seleccionarServicio('Mantenimiento')">Solicitar servicio</button>
             </div>
           </article>
         </div>
+    <button class="btn-servicio" onclick="seleccionarServicio('Reparación')">
+  Solicitar servicio
+</button>
       </div>
     </section>
 
@@ -425,14 +413,6 @@
       </div>
 
     </div>
-
-    <!-- BOTÓN -->
-    <div style="text-align:center; margin-top: 25px;">
-      <a href="#servicios" class="btn btn-primary">
-        Solicitar servicio ahora
-      </a>
-    </div>
-
   </div>
 </section>
 
@@ -465,7 +445,7 @@
           </select>
 
           <textarea id="mensaje" placeholder="Describe tu problema"></textarea>
-          <button type="submit">Enviar solicitud</button>
+          <button class="btn-enviarSolicitud" type="submit">Enviar solicitud</button>
         </form>
 
       </div>
