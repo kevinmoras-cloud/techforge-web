@@ -63,8 +63,8 @@ function renderTarjetaProducto(p) {
         </div>
 
         <button class="pc-btn" 
-          ${agotado ? "disabled" : ""}
-          onclick="seleccionarServicio('Ensamble')">
+           ${agotado ? "disabled" : ""}
+           onclick="window.location.href='https://wa.me/573176065800'">
           ${agotado ? "No disponible" : "Cotizar"}
         </button>
 

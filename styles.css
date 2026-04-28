@@ -936,21 +936,3 @@ img{
   box-shadow: var(--shadow);
 }
 
-/* FIX sección testimonial */
-.testimonial .section-head h2 {
-  color: #ffffff !important;
-  opacity: 1 !important;
-}
-
-.testimonial .section-head p,
-.testimonial .section-kicker {
-  color: #cbd5f5 !important;
-}
-
-.reasons li {
-  color: #e2e8f0 !important;
-}
-
-.trust-big {
-  color: #ffffff !important;
-}
