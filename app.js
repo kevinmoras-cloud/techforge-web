@@ -218,8 +218,8 @@ document.addEventListener("DOMContentLoaded", () => {
             nombre,
             telefono,
             correo,
-            direccion,
-            password,
+            servicio_id: servicio, 
+            mensaje,
           }),
         });
 
