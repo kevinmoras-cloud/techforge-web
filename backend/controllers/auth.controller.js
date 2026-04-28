@@ -1,69 +1,71 @@
 const db = require("../db");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 
 // ================= REGISTRO =================
-exports.register = (req, res) => {
+exports.register = async (req, res) => {
   const { nombre, telefono, correo, direccion, password } = req.body;
 
   if (!nombre || !telefono || !correo || !direccion || !password) {
     return res.status(400).json({ mensaje: "Faltan datos" });
   }
 
-  bcrypt.hash(password, 10, (err, hash) => {
-    if (err) return res.status(500).json({ mensaje: "Error en hash" });
+  try {
+    const hash = await bcrypt.hash(password, 10);
 
     const sql = `
       INSERT INTO usuarios (nombre, telefono, correo, direccion, password)
       VALUES (?, ?, ?, ?, ?)
     `;
 
-    db.query(sql, [nombre, telefono, correo, direccion, hash], (err) => {
-      if (err) {
-        console.log(err);
-        return res.status(400).json({ mensaje: "Correo ya existe" });
-      }
+    await db.query(sql, [nombre, telefono, correo, direccion, hash]);
 
-      res.json({ mensaje: "Usuario registrado" });
-    });
-  });
+    res.json({ mensaje: "Usuario registrado" });
+
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ mensaje: "Correo ya existe o error en BD" });
+  }
 };
 
 // ================= LOGIN =================
-exports.login = (req, res) => {
+exports.login = async (req, res) => {
   const { correo, password } = req.body;
 
-  const sql = "SELECT * FROM usuarios WHERE correo = ?";
+  if (!correo || !password) {
+    return res.status(400).json({ mensaje: "Faltan datos" });
+  }
 
-  db.query(sql, [correo], async (err, result) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).json({ mensaje: "Error servidor" });
-    }
+  try {
+    const [rows] = await db.query(
+      "SELECT * FROM usuarios WHERE correo = ?",
+      [correo]
+    );
 
-    if (result.length === 0) {
+    if (rows.length === 0) {
       return res.status(404).json({ mensaje: "Usuario no encontrado" });
     }
 
-    const user = result[0];
+    const usuario = rows[0];
 
-    const match = await bcrypt.compare(password, user.password);
+    const validPassword = await bcrypt.compare(password, usuario.password);
 
-    if (!match) {
+    if (!validPassword) {
       return res.status(401).json({ mensaje: "Contraseña incorrecta" });
     }
 
-    const token = jwt.sign({ id: user.id }, "secreto", { expiresIn: "1h" });
-
     res.json({
       mensaje: "Login exitoso",
-      token,
       usuario: {
-        id: user.id,
-        nombre: user.nombre,
-        correo: user.correo,
-        rol_id: user.rol_id
-      }
+        id: usuario.id,
+        nombre: usuario.nombre,
+        correo: usuario.correo,
+        rol_id: usuario.rol_id,
+      },
+      token: "fake-token",
     });
-  });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "Error en el servidor" });
+  }
 };

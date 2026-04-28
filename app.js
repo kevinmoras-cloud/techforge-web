@@ -4,16 +4,25 @@ function getServiceInput() {
   return document.getElementById("servicio");
 }
 
+const SERVICE_MAP = {
+  Ensamble: 1,
+  "Ensamble de PC": 1,
+  Reparación: 2,
+  "Reparación de Computadores": 2,
+  Mantenimiento: 3,
+  "Mantenimiento Preventivo": 3,
+};
+
 function setSelectedService(servicio) {
   const input = getServiceInput();
-  const value = String(servicio).trim();
+  const id = SERVICE_MAP[servicio] || null;
 
-  if (!value) return;
+  if (!id) return;
 
-  localStorage.setItem("servicioSeleccionado", value);
+  localStorage.setItem("servicioSeleccionado", String(id));
 
   if (input) {
-    input.value = value;
+    input.value = String(id);
   }
 }
 
@@ -110,7 +119,17 @@ document.addEventListener("DOMContentLoaded", () => {
           localStorage.setItem("usuario", JSON.stringify(data.usuario));
         }
 
-        alert(`Bienvenido, ${data.usuario?.nombre || "usuario"}`);
+        localStorage.setItem("token", data.token || "");
+        localStorage.setItem("usuario", JSON.stringify(data.usuario));
+
+        console.log("Usuario logueado:", data.usuario);
+
+        if (data.usuario?.rol_id === 3) {
+          window.location.href = "admin.html";
+        } else {
+          alert(`Bienvenido, ${data.usuario?.nombre || "usuario"}`);
+        }
+
         loginForm.reset();
         closeModal();
       } catch (error) {
@@ -173,49 +192,55 @@ document.addEventListener("DOMContentLoaded", () => {
 }
 
   if (form) {
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-      const nombre = document.getElementById("nombre")?.value.trim() || "";
-      const correo = document.getElementById("correo")?.value.trim() || "";
-      const servicio_id = document.getElementById("servicio")?.value || "";
-      const mensaje = document.getElementById("mensaje")?.value.trim() || "";
+    console.log("FORM ENVIADO 🔥");
 
-      if (!nombre || !correo || !servicio_id || !mensaje) {
-        alert("Por favor completa todos los campos");
+    const nombre = document.getElementById("nombre")?.value.trim() || "";
+    const correo = document.getElementById("correo")?.value.trim() || "";
+    const servicio_id = Number(document.getElementById("servicio")?.value || 0);
+    const mensaje = document.getElementById("mensaje")?.value.trim() || "";
+
+    console.log("Valores:", { nombre, correo, servicio_id, mensaje });
+
+    if (!nombre || !correo || servicio_id === 0 || !mensaje) {
+      alert("Por favor completa todos los campos");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE}/api/solicitudes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nombre,
+          correo,
+          servicio: servicio_id,   // o servicio_id: servicio_id, según tu backend
+          mensaje,
+        }),
+      });
+
+      const data = await response.json();
+
+      console.log("Respuesta:", data);
+
+      if (!response.ok) {
+        alert(data.mensaje || "Error al enviar la solicitud");
         return;
       }
 
-      try {
-        const response = await fetch(`${API_BASE}/api/solicitudes`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            nombre,
-            correo,
-            servicio: Number(servicio_id),
-            mensaje,
-          }),
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          alert(data.mensaje || "Error al enviar la solicitud");
-          return;
-        }
-
-        alert("Solicitud enviada correctamente");
-        form.reset();
-        localStorage.removeItem("servicioSeleccionado");
-      } catch (error) {
-        console.error("Error solicitud:", error);
-        alert("No se pudo conectar con el servidor");
-      }
-    });
-  }
+      alert("Solicitud enviada correctamente");
+      form.reset();
+      localStorage.removeItem("servicioSeleccionado");
+    } catch (error) {
+      console.error("Error solicitud:", error);
+      alert("No se pudo conectar con el servidor");
+    }
+  });
+}
 
   const elementos = document.querySelectorAll(".animar");
 

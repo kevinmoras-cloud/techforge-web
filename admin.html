@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel Admin – TechForge</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: #07101f;
+      color: #eef3ff;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      background: rgba(6,11,26,.9);
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    .admin-header .brand {
+      font-size: 1.3rem;
+      font-weight: 800;
+      background: linear-gradient(120deg, #4ea3ff, #7b5cff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .admin-header button {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.15);
+      color: #eef3ff;
+      padding: 8px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: .2s;
+    }
+
+    .admin-header button:hover {
+      background: rgba(255,77,77,.2);
+      border-color: #ff4d4d;
+      color: #ff4d4d;
+    }
+
+    /* ── CONTENIDO ── */
+    .admin-body {
+      padding: 32px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .admin-welcome {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .admin-subtitle {
+      color: #8a96b0;
+      margin-bottom: 32px;
+    }
+
+    /* ── TARJETA TABLA ── */
+    .tabla-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .tabla-card-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tabla-card-header h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .badge-total {
+      background: linear-gradient(135deg, #4ea3ff, #7b5cff);
+      color: #fff;
+      font-size: .78rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background: rgba(255,255,255,.05);
+    }
+
+    th {
+      padding: 12px 20px;
+      text-align: left;
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #8a96b0;
+    }
+
+    td {
+      padding: 14px 20px;
+      font-size: .92rem;
+      border-top: 1px solid rgba(255,255,255,.06);
+      color: #d0d8f0;
+    }
+
+    tr:hover td {
+      background: rgba(78,163,255,.05);
+    }
+
+    .servicio-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: .75rem;
+      font-weight: 700;
+      background: rgba(78,163,255,.15);
+      color: #4ea3ff;
+      border: 1px solid rgba(78,163,255,.3);
+    }
+
+    .empty-msg {
+      text-align: center;
+      padding: 40px;
+      color: #8a96b0;
+    }
+
+    /* ── LOADING ── */
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #8a96b0;
+      font-size: .95rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="admin-header">
+    <span class="brand">⚙ TechForge Admin</span>
+    <button id="btnCerrarSesion">Cerrar sesión</button>
+  </header>
+
+  <!-- CONTENIDO -->
+  <main class="admin-body">
+    <p class="admin-welcome" id="adminNombre">Bienvenido</p>
+    <p class="admin-subtitle">Panel de administración de solicitudes</p>
+
+    <div class="tabla-card">
+      <div class="tabla-card-header">
+        <h3>Solicitudes de clientes</h3>
+        <span class="badge-total" id="totalSolicitudes">0 solicitudes</span>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Servicio</th>
+            <th>Mensaje</th>
+          </tr>
+        </thead>
+        <tbody id="tablaSolicitudes">
+          <tr>
+            <td colspan="5" class="loading">Cargando solicitudes...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script src="admin.js"></script>
+</body>
+</html>

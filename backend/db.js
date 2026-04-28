@@ -1,21 +1,20 @@
-const mysql = require("mysql2");
+const mysql = require("mysql2/promise"); // ← /promise al final
 require("dotenv").config();
 
-// Crear conexión
-const conexion = mysql.createConnection({
-  host: process.env.DB_HOST || "localhost",
-  user: process.env.DB_USER || "root",
+const db = mysql.createPool({
+  host:     process.env.DB_HOST     || "localhost",
+  user:     process.env.DB_USER     || "root",
   password: process.env.DB_PASSWORD || "",
-  database: process.env.DB_NAME || "techforge"
+  database: process.env.DB_NAME     || "techforge",
+  waitForConnections: true,
+  connectionLimit: 10,
 });
 
-// Conectar
-conexion.connect((err) => {
-  if (err) {
-    console.error("❌ Error de conexión a MySQL:", err.message);
-    return;
-  }
-  console.log("✅ Conectado a MySQL → BD:", conexion.config.database);
-});
+db.getConnection()
+  .then(conn => {
+    console.log("✅ Pool MySQL conectado →", process.env.DB_NAME);
+    conn.release();
+  })
+  .catch(err => console.error("❌ Error MySQL:", err.message));
 
-module.exports = conexion;
+module.exports = db;

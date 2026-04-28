@@ -1,74 +1,67 @@
 const db = require("../db");
 
-// CREAR SOLICITUD
-exports.crearSolicitud = (req, res) => {
-  // El frontend envía: { nombre, correo, servicio (número), mensaje }
+// ================= CREAR SOLICITUD =================
+exports.crearSolicitud = async (req, res) => {
   const { nombre, correo, servicio, mensaje } = req.body;
+
+  console.log("BODY RECIBIDO:", req.body);
 
   if (!nombre || !correo || !servicio || !mensaje) {
     return res.status(400).json({ mensaje: "Faltan datos" });
   }
 
-  // ✅ FIX: el frontend manda el ID numérico directamente,
-  //         así que validamos por ID, no por nombre
   const servicio_id = parseInt(servicio, 10);
 
   if (isNaN(servicio_id) || servicio_id < 1) {
     return res.status(400).json({ mensaje: "ID de servicio inválido" });
   }
 
-  // Verificar que el servicio exista en la tabla
- const buscarServicio = "SELECT id FROM servicios WHERE id = ?";
+  try {
+    const [servicioRows] = await db.query(
+      "SELECT id FROM servicios WHERE id = ?",
+      [servicio_id]
+    );
 
-  db.query(buscarServicio, [servicio_id], (err, result) => {
-    if (err) {
-      console.error("Error buscando servicio:", err);
-      return res.status(500).json({ mensaje: "Error buscando servicio" });
-    }
-
-    if (result.length === 0) {
+    if (servicioRows.length === 0) {
       return res.status(404).json({ mensaje: "Servicio no existe" });
     }
 
-    const sql = `
-      INSERT INTO solicitudes_servicio 
+    const [result] = await db.query(
+      `INSERT INTO solicitudes_servicio 
         (servicio_id, nombre_contacto, correo_contacto, descripcion)
-      VALUES (?, ?, ?, ?)
-    `;
+       VALUES (?, ?, ?, ?)`,
+      [servicio_id, nombre, correo, mensaje]
+    );
 
-    db.query(sql, [servicio_id, nombre, correo, mensaje], (err) => {
-      if (err) {
-        console.error("Error al guardar solicitud:", err);
-        return res.status(500).json({ mensaje: "Error al guardar solicitud" });
-      }
+    console.log("✅ Solicitud guardada, ID:", result.insertId);
+    return res.status(201).json({ mensaje: "Solicitud guardada correctamente" });
 
-      res.status(201).json({ mensaje: "Solicitud guardada correctamente" });
-    });
-  });
+  } catch (error) {
+    console.error("❌ Error en crearSolicitud:", error);
+    return res.status(500).json({ mensaje: "Error al guardar solicitud" });
+  }
 };
 
-// OBTENER TODAS
-exports.obtenerSolicitudes = (req, res) => {
-  // ✅ FIX: quitado s.fecha_solicitud porque no existe en tu schema
-  const sql = `
-    SELECT 
-      s.id,
-      sv.nombre   AS servicio,
-      s.nombre_contacto,
-      s.correo_contacto,
-      s.descripcion,
-      s.estado_id
-    FROM solicitudes_servicio s
-    JOIN servicios sv ON s.servicio_id = sv.id
-    ORDER BY s.id DESC
-  `;
+// ================= OBTENER SOLICITUDES =================
+exports.obtenerSolicitudes = async (req, res) => {
+  try {
+    const [results] = await db.query(`
+      SELECT 
+        ss.id,
+        ss.nombre_contacto,
+        ss.correo_contacto,
+        s.nombre  AS servicio,
+        ss.descripcion
+      FROM solicitudes_servicio ss
+      JOIN servicios s ON ss.servicio_id = s.id
+      ORDER BY ss.id DESC
+    `);
 
-  db.query(sql, (err, results) => {
-    if (err) {
-      console.error("Error al obtener solicitudes:", err);
-      return res.status(500).json({ mensaje: "Error al obtener solicitudes" });
-    }
+    console.log("✅ Solicitudes encontradas:", results.length);
+    return res.json(results);
 
-    res.json(results);
-  });
+  } catch (error) {
+    console.error("❌ Error en obtenerSolicitudes:", error);
+    return res.status(500).json({ mensaje: "Error al obtener solicitudes" });
+  }
 };
