@@ -4,194 +4,504 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Panel Admin – TechForge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: system-ui, sans-serif;
-      background: #07101f;
-      color: #eef3ff;
-      min-height: 100vh;
+    :root {
+      --bg:        #07101f;
+      --surface:   rgba(255,255,255,.04);
+      --border:    rgba(255,255,255,.09);
+      --border-hi: rgba(255,255,255,.18);
+      --text:      #eef3ff;
+      --muted:     #6b7a99;
+      --accent:    #4ea3ff;
+      --accent2:   #7b5cff;
+      --success:   #2dd4bf;
+      --danger:    #f87171;
+      --warn:      #fb923c;
     }
 
-    /* ── HEADER ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Syne', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── HEADER ─── */
     .admin-header {
+      position: sticky; top: 0; z-index: 100;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 32px;
-      background: rgba(6,11,26,.9);
-      border-bottom: 1px solid rgba(255,255,255,.1);
+      padding: 14px 32px;
+      background: rgba(7,16,31,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
     }
-
-    .admin-header .brand {
-      font-size: 1.3rem;
-      font-weight: 800;
-      background: linear-gradient(120deg, #4ea3ff, #7b5cff);
+    .brand {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      background: linear-gradient(120deg, var(--accent), var(--accent2));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      letter-spacing: -.02em;
     }
-
-    .admin-header button {
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.15);
-      color: #eef3ff;
-      padding: 8px 18px;
+    .header-right { display: flex; align-items: center; gap: 16px; }
+    .admin-name {
+      font-size: .85rem;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+    }
+    .btn-logout {
+      background: transparent;
+      border: 1px solid var(--border-hi);
+      color: var(--muted);
+      padding: 7px 16px;
       border-radius: 8px;
       cursor: pointer;
+      font-family: 'Syne', sans-serif;
+      font-size: .82rem;
       font-weight: 600;
       transition: .2s;
     }
+    .btn-logout:hover { border-color: var(--danger); color: var(--danger); }
 
-    .admin-header button:hover {
-      background: rgba(255,77,77,.2);
-      border-color: #ff4d4d;
-      color: #ff4d4d;
+    /* ─── LAYOUT ─── */
+    .admin-layout { display: flex; flex: 1; }
+
+    /* ─── SIDEBAR ─── */
+    .sidebar {
+      width: 220px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--border);
+      padding: 24px 0;
+      position: sticky;
+      top: 53px;
+      height: calc(100vh - 53px);
+      overflow-y: auto;
     }
+    .sidebar-label {
+      font-family: 'Space Mono', monospace;
+      font-size: .65rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0 20px 8px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--muted);
+      border-left: 2px solid transparent;
+      transition: .18s;
+      user-select: none;
+    }
+    .nav-item:hover { color: var(--text); background: var(--surface); }
+    .nav-item.active {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: rgba(78,163,255,.07);
+    }
+    .nav-item .icon { font-size: 1rem; width: 20px; text-align: center; }
 
-    /* ── CONTENIDO ── */
-    .admin-body {
+    /* ─── MAIN ─── */
+    .admin-main {
+      flex: 1;
       padding: 32px;
       max-width: 1100px;
-      margin: 0 auto;
+      width: 100%;
     }
 
-    .admin-welcome {
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-bottom: 8px;
+    /* ─── SECTION PAGES ─── */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .page-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+      letter-spacing: -.02em;
+    }
+    .page-sub {
+      color: var(--muted);
+      font-size: .88rem;
+      margin-bottom: 28px;
     }
 
-    .admin-subtitle {
-      color: #8a96b0;
-      margin-bottom: 32px;
-    }
-
-    /* ── TARJETA TABLA ── */
-    .tabla-card {
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 16px;
+    /* ─── CARD ─── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
       overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .card-header {
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .card-header h3 { font-size: .97rem; font-weight: 700; }
+
+    /* ─── BADGES ─── */
+    .badge {
+      font-family: 'Space Mono', monospace;
+      font-size: .72rem;
+      font-weight: 700;
+      padding: 3px 11px;
+      border-radius: 999px;
+    }
+    .badge-blue  { background: rgba(78,163,255,.15); color: var(--accent);  border: 1px solid rgba(78,163,255,.3); }
+    .badge-green { background: rgba(45,212,191,.15); color: var(--success); border: 1px solid rgba(45,212,191,.3); }
+    .badge-red   { background: rgba(248,113,113,.15); color: var(--danger); border: 1px solid rgba(248,113,113,.3); }
+    .badge-gray  { background: rgba(107,122,153,.15); color: var(--muted);  border: 1px solid rgba(107,122,153,.3); }
+    .badge-total {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      font-family: 'Space Mono', monospace;
+      font-size: .72rem;
+      font-weight: 700;
+      padding: 4px 13px;
+      border-radius: 999px;
     }
 
-    .tabla-card-header {
-      padding: 18px 24px;
-      border-bottom: 1px solid rgba(255,255,255,.08);
+    /* ─── TABLE ─── */
+    table { width: 100%; border-collapse: collapse; }
+    thead { background: rgba(255,255,255,.03); }
+    th {
+      padding: 11px 18px;
+      text-align: left;
+      font-family: 'Space Mono', monospace;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    td {
+      padding: 13px 18px;
+      font-size: .88rem;
+      border-top: 1px solid var(--border);
+      color: #c8d4f0;
+      vertical-align: middle;
+    }
+    tr:hover td { background: rgba(78,163,255,.04); }
+    .empty-msg, .loading-msg {
+      text-align: center;
+      padding: 44px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    /* ─── BOTONES ─── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-family: 'Syne', sans-serif;
+      font-size: .82rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: .18s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+    }
+    .btn-primary:hover { opacity: .88; transform: translateY(-1px); }
+    .btn-sm { padding: 5px 11px; font-size: .78rem; border-radius: 6px; }
+    .btn-edit {
+      background: rgba(78,163,255,.12);
+      border: 1px solid rgba(78,163,255,.25);
+      color: var(--accent);
+    }
+    .btn-edit:hover { background: rgba(78,163,255,.22); }
+    .btn-del {
+      background: rgba(248,113,113,.1);
+      border: 1px solid rgba(248,113,113,.22);
+      color: var(--danger);
+    }
+    .btn-del:hover { background: rgba(248,113,113,.2); }
+    .btn-ghost {
+      background: var(--surface);
+      border: 1px solid var(--border-hi);
+      color: var(--muted);
+    }
+    .btn-ghost:hover { color: var(--text); }
+    .actions-cell { display: flex; gap: 6px; }
+
+    /* ─── MODAL ─── */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,.6);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: #0d1930;
+      border: 1px solid var(--border-hi);
+      border-radius: 16px;
+      padding: 28px 32px;
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: slideUp .22s ease;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to   { transform: translateY(0);   opacity: 1; }
+    }
+    .modal-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-
-    .tabla-card-header h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
+    .modal-close {
+      background: none; border: none; color: var(--muted);
+      font-size: 1.3rem; cursor: pointer; line-height: 1;
     }
+    .modal-close:hover { color: var(--danger); }
 
-    .badge-total {
-      background: linear-gradient(135deg, #4ea3ff, #7b5cff);
-      color: #fff;
-      font-size: .78rem;
-      font-weight: 700;
-      padding: 4px 12px;
-      border-radius: 999px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    thead {
+    /* ─── FORM ─── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+    label { font-size: .78rem; font-weight: 700; color: var(--muted); letter-spacing: .04em; }
+    input, select, textarea {
       background: rgba(255,255,255,.05);
+      border: 1px solid var(--border-hi);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      font-size: .88rem;
+      padding: 9px 12px;
+      outline: none;
+      transition: border-color .18s;
+      width: 100%;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent);
+    }
+    select option { background: #0d1930; }
+    textarea { resize: vertical; min-height: 80px; }
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 22px;
     }
 
-    th {
+    /* ─── STOCK DISPLAY ─── */
+    .stock-num {
+      font-family: 'Space Mono', monospace;
+      font-size: .85rem;
+    }
+    .stock-zero { color: var(--danger); }
+    .stock-ok   { color: var(--success); }
+
+    /* ─── TOAST ─── */
+    #toast {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      background: #1a2540;
+      border: 1px solid var(--border-hi);
+      border-radius: 10px;
       padding: 12px 20px;
-      text-align: left;
-      font-size: .8rem;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: #8a96b0;
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--text);
+      z-index: 999;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: .3s cubic-bezier(.34,1.56,.64,1);
+      max-width: 340px;
     }
+    #toast.show { transform: translateY(0); opacity: 1; }
+    #toast.ok   { border-color: rgba(45,212,191,.4); color: var(--success); }
+    #toast.err  { border-color: rgba(248,113,113,.4); color: var(--danger); }
 
-    td {
-      padding: 14px 20px;
-      font-size: .92rem;
-      border-top: 1px solid rgba(255,255,255,.06);
-      color: #d0d8f0;
-    }
-
-    tr:hover td {
-      background: rgba(78,163,255,.05);
-    }
-
-    .servicio-badge {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 999px;
-      font-size: .75rem;
-      font-weight: 700;
-      background: rgba(78,163,255,.15);
-      color: #4ea3ff;
-      border: 1px solid rgba(78,163,255,.3);
-    }
-
-    .empty-msg {
-      text-align: center;
-      padding: 40px;
-      color: #8a96b0;
-    }
-
-    /* ── LOADING ── */
-    .loading {
-      text-align: center;
-      padding: 40px;
-      color: #8a96b0;
-      font-size: .95rem;
+    @media (max-width: 700px) {
+      .sidebar { display: none; }
+      .admin-main { padding: 20px; }
+      .form-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="admin-header">
-    <span class="brand">⚙ TechForge Admin</span>
-    <button id="btnCerrarSesion">Cerrar sesión</button>
-  </header>
+<!-- ── HEADER ── -->
+<header class="admin-header">
+  <span class="brand">⚙ TechForge / Admin</span>
+  <div class="header-right">
+    <span class="admin-name" id="adminNombre"></span>
+    <button class="btn-logout" id="btnCerrarSesion">Cerrar sesión</button>
+  </div>
+</header>
 
-  <!-- CONTENIDO -->
-  <main class="admin-body">
-    <p class="admin-welcome" id="adminNombre">Bienvenido</p>
-    <p class="admin-subtitle">Panel de administración de solicitudes</p>
+<div class="admin-layout">
 
-    <div class="tabla-card">
-      <div class="tabla-card-header">
-        <h3>Solicitudes de clientes</h3>
-        <span class="badge-total" id="totalSolicitudes">0 solicitudes</span>
-      </div>
-
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Nombre</th>
-            <th>Correo</th>
-            <th>Servicio</th>
-            <th>Mensaje</th>
-          </tr>
-        </thead>
-        <tbody id="tablaSolicitudes">
-          <tr>
-            <td colspan="5" class="loading">Cargando solicitudes...</td>
-          </tr>
-        </tbody>
-      </table>
+  <!-- ── SIDEBAR ── -->
+  <nav class="sidebar">
+    <p class="sidebar-label">Módulos</p>
+    <div class="nav-item active" data-page="solicitudes">
+      <span class="icon">📋</span> Solicitudes
     </div>
-  </main>
+    <div class="nav-item" data-page="productos">
+      <span class="icon">📦</span> Productos
+    </div>
+  </nav>
 
-  <script src="admin.js"></script>
+  <!-- ── MAIN ── -->
+  <main class="admin-main">
+
+    <!-- ═══ PAGE: SOLICITUDES ═══ -->
+    <section class="page active" id="page-solicitudes">
+      <p class="page-title">Solicitudes de servicio</p>
+      <p class="page-sub">Gestión de todas las solicitudes enviadas por los clientes</p>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Todas las solicitudes</h3>
+          <span class="badge-total" id="totalSolicitudes">0 solicitudes</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>#</th><th>Nombre</th><th>Correo</th><th>Servicio</th><th>Mensaje</th>
+            </tr>
+          </thead>
+          <tbody id="tablaSolicitudes">
+            <tr><td colspan="5" class="loading-msg">Cargando solicitudes…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══ PAGE: PRODUCTOS ═══ -->
+<section class="page" id="page-productos">
+  <p class="page-title">Gestión de productos</p>
+  <p class="page-sub">Catálogo completo — crear, editar y eliminar productos</p>
+ 
+  <div class="card">
+    <div class="card-header">
+      <h3>Catálogo de productos</h3>
+      <div style="display:flex;gap:10px;align-items:center;">
+        <span class="badge-total" id="totalProductos">0 productos</span>
+        <button class="btn btn-primary btn-sm" id="btnNuevoProducto">+ Nuevo producto</button>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Categoría</th>
+          <th>Precio</th>
+          <th>Stock</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablaProductos">
+        <tr><td colspan="7" class="loading-msg">Cargando productos…</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+ 
+ 
+<!-- ══ MODAL PRODUCTO ══ -->
+<div class="modal-overlay" id="modalProducto">
+  <div class="modal">
+    <div class="modal-title">
+      <span id="modalTitulo">Nuevo producto</span>
+      <button class="modal-close" id="cerrarModal">✕</button>
+    </div>
+ 
+    <div class="form-grid">
+      <input type="hidden" id="productoId">
+ 
+      <div class="form-group">
+        <label>Nombre *</label>
+        <input type="text" id="pNombre" placeholder="Ej: RTX 4070 Ti">
+      </div>
+ 
+      <div class="form-group">
+        <label>Categoría *</label>
+        <select id="pCategoria"></select>
+      </div>
+ 
+      <div class="form-group">
+        <label>Precio (COP) *</label>
+        <input type="number" id="pPrecio" placeholder="0" min="0" step="0.01">
+      </div>
+ 
+      <div class="form-group">
+        <label>Precio anterior (tachado)</label>
+        <input type="number" id="pPrecioAnterior" placeholder="Dejar vacío si no aplica" min="0" step="0.01">
+      </div>
+ 
+      <div class="form-group">
+        <label>Stock</label>
+        <input type="number" id="pStock" placeholder="0" min="0">
+      </div>
+ 
+      <!-- Estado: solo visible al EDITAR -->
+      <div class="form-group" id="estadoGroup" style="display:none;">
+        <label>Estado</label>
+        <select id="pEstado">
+          <option value="activo">Activo</option>
+          <option value="inactivo">Inactivo</option>
+        </select>
+      </div>
+ 
+      <div class="form-group full">
+        <label>Descripción</label>
+        <textarea id="pDescripcion" placeholder="Descripción del producto…"></textarea>
+      </div>
+ 
+      <div class="form-group full">
+        <label>URL de imagen</label>
+        <input type="text" id="pImagen" placeholder="https://…">
+      </div>
+    </div>
+ 
+    <div class="form-actions">
+      <button class="btn btn-ghost"   id="cancelarModal">Cancelar</button>
+      <button class="btn btn-primary" id="guardarProducto">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── TOAST ── -->
+<div id="toast"></div>
+
+<script src="admin.js"></script>
 </body>
 </html>
