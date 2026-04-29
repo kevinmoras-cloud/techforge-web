@@ -79,10 +79,17 @@ async function cargarSolicitudes() {
     tbody.innerHTML = data.map(s => `
       <tr>
         <td>${s.id}</td>
+<<<<<<< HEAD
         <td>${s.nombre_contacto || "—"}</td>
         <td>${s.correo_contacto || "—"}</td>
         <td><span class="badge badge-blue">${s.servicio || "—"}</span></td>
         <td>${s.descripcion || "—"}</td>
+=======
+        <td>${s.nombre_contacto}</td>
+        <td>${s.correo_contacto}</td>
+        <td><span class="badge badge-blue">${s.servicio_nombre || s.servicio || "—"}</span></td>
+        <td>${s.descripcion}</td>
+>>>>>>> 1db9667c59948bca268448330eeba0d7af66b1ec
       </tr>
     `).join("");
 

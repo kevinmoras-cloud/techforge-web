@@ -188,6 +188,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (data.usuario?.rol_id === 3) {
           window.location.href = "admin.html";
+        } else if (data.usuario?.rol_id === 2) {
+          window.location.href = "tecnico.html";
         } else {
           alert(`Bienvenido, ${data.usuario?.nombre || "usuario"}`);
         }
