@@ -2,7 +2,7 @@ const db = require("../db");
 
 // ================= CREAR SOLICITUD =================
 exports.crearSolicitud = async (req, res) => {
-  const { nombre, correo, servicio, mensaje } = req.body;
+  const { nombre, correo, servicio, mensaje, usuario_id } = req.body;
 
   console.log("BODY RECIBIDO:", req.body);
 
@@ -25,12 +25,12 @@ exports.crearSolicitud = async (req, res) => {
     if (servicioRows.length === 0) {
       return res.status(404).json({ mensaje: "Servicio no existe" });
     }
-
-    const [result] = await db.query(
+     console.log("usuario_id:", usuario_id);
+     const [result] = await db.query(
       `INSERT INTO solicitudes_servicio 
-        (servicio_id, nombre_contacto, correo_contacto, descripcion)
-       VALUES (?, ?, ?, ?)`,
-      [servicio_id, nombre, correo, mensaje]
+        (servicio_id, nombre_contacto, correo_contacto, descripcion, usuario_id)
+       VALUES (?, ?, ?, ?, ?)`,
+      [servicio_id, nombre, correo, mensaje, parseInt(usuario_id)]
     );
 
     console.log("✅ Solicitud guardada, ID:", result.insertId);
@@ -107,5 +107,50 @@ exports.actualizarEstado = async (req, res) => {
   } catch (error) {
     console.error("❌ Error en actualizarEstado:", error);
     return res.status(500).json({ mensaje: "Error al actualizar estado" });
+  }
+};
+
+exports.obtenerSolicitudesPorUsuario = async (req, res) => {
+  const { usuario_id } = req.params;
+
+  try {
+    const [results] = await db.query(`
+      SELECT ss.*, s.nombre AS servicio_nombre
+      FROM solicitudes_servicio ss
+      LEFT JOIN servicios s ON ss.servicio_id = s.id
+      WHERE ss.usuario_id = ?
+      ORDER BY ss.id DESC
+    `, [usuario_id]);
+
+    res.json(results);
+  } catch (error) {
+    console.error("❌ Error:", error);
+    res.status(500).json({ mensaje: "Error al obtener solicitudes del usuario" });
+  }
+};
+
+
+// ================= OBTENER SOLICITUDES POR USUARIO =================
+exports.obtenerSolicitudesPorUsuario = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const [results] = await db.query(`
+      SELECT 
+        ss.id,
+        ss.descripcion,
+        ss.estado,
+        s.nombre AS servicio_nombre
+      FROM solicitudes_servicio ss
+      LEFT JOIN servicios s ON ss.servicio_id = s.id
+      WHERE ss.usuario_id = ?
+      ORDER BY ss.id DESC
+    `, [id]);
+
+    res.json(results);
+
+  } catch (error) {
+    console.error("❌ Error:", error);
+    res.status(500).json({ mensaje: "Error al obtener solicitudes del usuario" });
   }
 };

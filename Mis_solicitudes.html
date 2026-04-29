@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mis solicitudes - TechForge</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    body {
+      background: #0f172a;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+    }
+
+    .estado {
+      padding: 5px 10px;
+      border-radius: 5px;
+      display: inline-block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .pendiente { background: orange; }
+    .en_proceso { background: blue; }
+    .finalizada { background: green; }
+    .cancelada { background: red; }
+  </style>
+</head>
+
+<body>
+
+  <h2>Mis solicitudes</h2>
+
+  <!-- 👇 AQUÍ SE VAN A PINTAR -->
+  <div id="lista-solicitudes"></div>
+
+  <script src="mis-solicitudes.js"></script>
+
+</body>
+</html>

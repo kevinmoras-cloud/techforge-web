@@ -185,6 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         localStorage.setItem("token", data.token || "");
         localStorage.setItem("usuario", JSON.stringify(data.usuario));
+        localStorage.setItem("usuarioId", data.usuario.id);
 
         if (data.usuario?.rol_id === 3) {
           window.location.href = "admin.html";
@@ -266,12 +267,13 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Por favor completa todos los campos");
         return;
       }
-
+        const usuarioId = localStorage.getItem("usuarioId");
+        console.log("USUARIO ID QUE SE ENVÍA:", usuarioId);
       try {
         const response = await fetch(`${API_BASE}/api/solicitudes`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ nombre, correo, servicio: servicio_id, mensaje }),
+          body: JSON.stringify({ nombre, correo, servicio: servicio_id, mensaje, usuario_id: usuarioId }),
         });
 
         const data = await response.json();
