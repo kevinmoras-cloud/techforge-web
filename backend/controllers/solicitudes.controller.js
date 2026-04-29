@@ -7,7 +7,7 @@ exports.crearSolicitud = async (req, res) => {
   console.log("BODY RECIBIDO:", req.body);
 
   if (!nombre || !correo || !servicio || !mensaje) {
-    return res.status(400).json({ mensaje: "Faltan datos" });
+    return res.status(400).json({ mensaje: "Faltan datos en el formulario" });
   }
 
   const servicio_id = parseInt(servicio, 10);
@@ -17,6 +17,7 @@ exports.crearSolicitud = async (req, res) => {
   }
 
   try {
+<<<<<<< HEAD
     const [servicioRows] = await db.query(
       "SELECT id FROM servicios WHERE id = ?",
       [servicio_id]
@@ -31,6 +32,15 @@ exports.crearSolicitud = async (req, res) => {
         (servicio_id, nombre_contacto, correo_contacto, descripcion, usuario_id)
        VALUES (?, ?, ?, ?, ?)`,
       [servicio_id, nombre, correo, mensaje, parseInt(usuario_id)]
+=======
+    // Insertamos usando los nombres de columna correctos de tu Base de Datos:
+    // nombre_contacto, correo_contacto, descripcion y estado_id (1 = Pendiente)
+    const [result] = await db.query(
+      `INSERT INTO solicitudes_servicio 
+        (servicio_id, nombre_contacto, correo_contacto, descripcion, estado_id)
+       VALUES (?, ?, ?, ?, 1)`,
+      [servicio_id, nombre, correo, mensaje]
+>>>>>>> 9e99eb657f2dbed0ef073e6753310d9cd0d0022e
     );
 
     console.log("✅ Solicitud guardada, ID:", result.insertId);
@@ -42,7 +52,7 @@ exports.crearSolicitud = async (req, res) => {
   }
 };
 
-// ================= OBTENER SOLICITUDES =================
+// ================= OBTENER SOLICITUDES (Corregido para tu Panel Admin) =================
 exports.obtenerSolicitudes = async (req, res) => {
   try {
     const [results] = await db.query(`
@@ -50,12 +60,14 @@ exports.obtenerSolicitudes = async (req, res) => {
         ss.id,
         ss.nombre_contacto,
         ss.correo_contacto,
-        ss.estado,
+        ss.estado_id,
+        est.nombre AS estado_nombre,
         ss.servicio_id,
         s.nombre AS servicio_nombre,
         ss.descripcion
       FROM solicitudes_servicio ss
       LEFT JOIN servicios s ON ss.servicio_id = s.id
+      LEFT JOIN estados_servicio est ON ss.estado_id = est.id
       ORDER BY ss.id DESC
     `);
 
@@ -66,30 +78,13 @@ exports.obtenerSolicitudes = async (req, res) => {
   }
 };
 
-// ================= LISTAR SOLICITUDES CON SERVICIO =================
-exports.listarSolicitudes = async (req, res) => {
-  try {
-    const [results] = await db.query(`
-      SELECT ss.*, s.nombre AS servicio_nombre
-      FROM solicitudes_servicio ss
-      LEFT JOIN servicios s ON ss.servicio_id = s.id
-      ORDER BY ss.id DESC
-    `);
-    res.json(results);
-  } catch (error) {
-    console.error("❌ Error en listarSolicitudes:", error);
-    res.status(500).json({ mensaje: "Error al obtener solicitudes" });
-  }
-};
-
 // ================= ACTUALIZAR ESTADO DE SOLICITUD =================
 exports.actualizarEstado = async (req, res) => {
   const { id } = req.params;
-  const { estado } = req.body;
+  const { estado_id } = req.body; // Ahora usamos estado_id (numérico)
 
-  const estadosValidos = ["pendiente", "en_proceso", "finalizada", "cancelada"];
-  if (!estadosValidos.includes(estado)) {
-    return res.status(400).json({ mensaje: "Estado inválido" });
+  if (!estado_id) {
+    return res.status(400).json({ mensaje: "Falta el estado_id" });
   }
 
   try {
@@ -101,9 +96,9 @@ exports.actualizarEstado = async (req, res) => {
     }
 
     await db.query(
-      "UPDATE solicitudes_servicio SET estado = ? WHERE id = ?", [estado, id]
+      "UPDATE solicitudes_servicio SET estado_id = ? WHERE id = ?", [estado_id, id]
     );
-    return res.json({ mensaje: "Estado actualizado" });
+    return res.json({ mensaje: "Estado actualizado con éxito" });
   } catch (error) {
     console.error("❌ Error en actualizarEstado:", error);
     return res.status(500).json({ mensaje: "Error al actualizar estado" });
