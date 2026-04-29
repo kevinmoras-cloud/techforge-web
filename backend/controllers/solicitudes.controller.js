@@ -17,7 +17,6 @@ exports.crearSolicitud = async (req, res) => {
   }
 
   try {
-<<<<<<< HEAD
     const [servicioRows] = await db.query(
       "SELECT id FROM servicios WHERE id = ?",
       [servicio_id]
@@ -32,15 +31,6 @@ exports.crearSolicitud = async (req, res) => {
         (servicio_id, nombre_contacto, correo_contacto, descripcion, usuario_id)
        VALUES (?, ?, ?, ?, ?)`,
       [servicio_id, nombre, correo, mensaje, parseInt(usuario_id)]
-=======
-    // Insertamos usando los nombres de columna correctos de tu Base de Datos:
-    // nombre_contacto, correo_contacto, descripcion y estado_id (1 = Pendiente)
-    const [result] = await db.query(
-      `INSERT INTO solicitudes_servicio 
-        (servicio_id, nombre_contacto, correo_contacto, descripcion, estado_id)
-       VALUES (?, ?, ?, ?, 1)`,
-      [servicio_id, nombre, correo, mensaje]
->>>>>>> 9e99eb657f2dbed0ef073e6753310d9cd0d0022e
     );
 
     console.log("✅ Solicitud guardada, ID:", result.insertId);
