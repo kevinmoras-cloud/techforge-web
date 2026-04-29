@@ -104,6 +104,28 @@ async function cargarProductosLanding() {
 //  DOM READY
 // ══════════════════════════════════════════
 document.addEventListener("DOMContentLoaded", () => {
+// 👤 CAMBIAR BOTÓN SI HAY SESIÓN
+const usuarioGuardado = localStorage.getItem("usuario");
+const btnUsuario = document.getElementById("btnUsuario");
+
+if (usuarioGuardado && btnUsuario) {
+  const usuario = JSON.parse(usuarioGuardado);
+
+  btnUsuario.innerHTML = `${usuario.nombre} ▼`;
+
+  // 🚨 QUITAR evento de abrir login
+  btnUsuario.removeEventListener("click", openModal);
+
+  // 👇 NUEVO comportamiento
+  btnUsuario.onclick = () => {
+    const confirmar = confirm("¿Cerrar sesión?");
+    if (confirmar) {
+      localStorage.removeItem("usuario");
+      localStorage.removeItem("usuarioId");
+      location.reload();
+    }
+  };
+}
   // Cargar productos dinámicos
   cargarProductosLanding();
 
@@ -188,11 +210,11 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("usuarioId", data.usuario.id);
 
         if (data.usuario?.rol_id === 3) {
-          window.location.href = "admin.html";
+        window.location.href = "admin.html";
         } else if (data.usuario?.rol_id === 2) {
-          window.location.href = "tecnico.html";
+        window.location.href = "tecnico.html";
         } else {
-          alert(`Bienvenido, ${data.usuario?.nombre || "usuario"}`);
+        location.reload(); // 👈 ESTA ES LA CLAVE
         }
 
         loginForm.reset();
