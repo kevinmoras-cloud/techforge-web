@@ -50,18 +50,62 @@ exports.obtenerSolicitudes = async (req, res) => {
         ss.id,
         ss.nombre_contacto,
         ss.correo_contacto,
-        s.nombre  AS servicio,
+        ss.estado,
+        ss.servicio_id,
+        s.nombre AS servicio_nombre,
         ss.descripcion
       FROM solicitudes_servicio ss
-      JOIN servicios s ON ss.servicio_id = s.id
+      LEFT JOIN servicios s ON ss.servicio_id = s.id
       ORDER BY ss.id DESC
     `);
 
-    console.log("✅ Solicitudes encontradas:", results.length);
     return res.json(results);
-
   } catch (error) {
     console.error("❌ Error en obtenerSolicitudes:", error);
     return res.status(500).json({ mensaje: "Error al obtener solicitudes" });
+  }
+};
+
+// ================= LISTAR SOLICITUDES CON SERVICIO =================
+exports.listarSolicitudes = async (req, res) => {
+  try {
+    const [results] = await db.query(`
+      SELECT ss.*, s.nombre AS servicio_nombre
+      FROM solicitudes_servicio ss
+      LEFT JOIN servicios s ON ss.servicio_id = s.id
+      ORDER BY ss.id DESC
+    `);
+    res.json(results);
+  } catch (error) {
+    console.error("❌ Error en listarSolicitudes:", error);
+    res.status(500).json({ mensaje: "Error al obtener solicitudes" });
+  }
+};
+
+// ================= ACTUALIZAR ESTADO DE SOLICITUD =================
+exports.actualizarEstado = async (req, res) => {
+  const { id } = req.params;
+  const { estado } = req.body;
+
+  const estadosValidos = ["pendiente", "en_proceso", "finalizada", "cancelada"];
+  if (!estadosValidos.includes(estado)) {
+    return res.status(400).json({ mensaje: "Estado inválido" });
+  }
+
+  try {
+    const [rows] = await db.query(
+      "SELECT id FROM solicitudes_servicio WHERE id = ?", [id]
+    );
+    if (rows.length === 0) {
+      return res.status(404).json({ mensaje: "Solicitud no encontrada" });
+    }
+
+    await db.query(
+      "UPDATE solicitudes_servicio SET estado = ? WHERE id = ?", [estado, id]
+    );
+    return res.json({ mensaje: "Estado actualizado" });
+  } catch (error) {
+    console.error("❌ Error en actualizarEstado:", error);
+    return res.status(500).json({ mensaje: "Error al actualizar estado" });
   }
 };

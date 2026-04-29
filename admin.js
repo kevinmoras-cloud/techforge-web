@@ -82,7 +82,7 @@ async function cargarSolicitudes() {
         <td>${s.id}</td>
         <td>${s.nombre_contacto}</td>
         <td>${s.correo_contacto}</td>
-        <td><span class="badge badge-blue">${s.servicio}</span></td>
+        <td><span class="badge badge-blue">${s.servicio_nombre || s.servicio || "—"}</span></td>
         <td>${s.descripcion}</td>
       </tr>
     `).join("");

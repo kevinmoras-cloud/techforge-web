@@ -7,4 +7,6 @@ router.post("/", solicitudesController.crearSolicitud);
 
 router.get("/", solicitudesController.obtenerSolicitudes);
 
+router.patch("/:id/estado", solicitudesController.actualizarEstado);
+
 module.exports = router;
