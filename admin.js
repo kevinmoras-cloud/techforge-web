@@ -57,45 +57,46 @@ function inicializarNav() {
 }
 
 // ══════════════════════════════════════════
-//  SOLICITUDES
+//  SOLICITUDES ✅ CONFLICTO RESUELTO
 // ══════════════════════════════════════════
 async function cargarSolicitudes() {
   const tbody = document.getElementById("tablaSolicitudes");
   const badge = document.getElementById("totalSolicitudes");
 
   try {
+    console.log("📥 Cargando solicitudes desde:", `${API_BASE}/api/solicitudes`);
+    
     const res = await fetch(`${API_BASE}/api/solicitudes`);
+    console.log("📡 Respuesta status:", res.status);
+    
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
+    console.log("✅ Solicitudes recibidas:", data.length);
 
     if (badge) badge.textContent = `${data.length} solicitud${data.length !== 1 ? "es" : ""}`;
     if (!tbody) return;
 
     if (data.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--text-secondary)">No hay solicitudes</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--text-secondary)">No hay solicitudes registradas</td></tr>`;
       return;
     }
 
+    // ✅ Versión segura con fallbacks para campos opcionales
     tbody.innerHTML = data.map(s => `
       <tr>
         <td>${s.id}</td>
-<<<<<<< HEAD
         <td>${s.nombre_contacto || "—"}</td>
         <td>${s.correo_contacto || "—"}</td>
-        <td><span class="badge badge-blue">${s.servicio || "—"}</span></td>
-        <td>${s.descripcion || "—"}</td>
-=======
-        <td>${s.nombre_contacto}</td>
-        <td>${s.correo_contacto}</td>
         <td><span class="badge badge-blue">${s.servicio_nombre || s.servicio || "—"}</span></td>
-        <td>${s.descripcion}</td>
->>>>>>> 1db9667c59948bca268448330eeba0d7af66b1ec
+        <td class="text-truncate" title="${s.descripcion || ""}">${s.descripcion || "—"}</td>
       </tr>
     `).join("");
 
   } catch (err) {
-    console.error("❌ Error solicitudes:", err);
-    if (tbody) tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--danger)">Error al cargar. Verifica que el backend esté corriendo en ${API_BASE}</td></tr>`;
+    console.error("❌ Error cargando solicitudes:", err);
+    if (tbody) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--danger)">Error al cargar. Verifica que el backend esté corriendo en ${API_BASE}</td></tr>`;
+    }
   }
 }
 
